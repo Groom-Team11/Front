@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   padding: 0 16px;  /* 양쪽에 16px 여백 */
   width: 100%;
   position: relative; /* 자식 요소들의 위치를 제어하기 위해 */
-  height: 100vh
+  height: 40vh
 `;
 
 const CloudImage = styled.img`
@@ -26,7 +26,7 @@ const Background = styled.div`
     align-items: center;
     width: 100%;
     max-width: 100%;
-    height: 40%;
+    height: 100%;
     background-color: ${props => props.setLong ? '#BBD3E8' : '#3A3B48'};
     position: absolute; /* Wrapper를 기준으로 배치 */
     top: 0;

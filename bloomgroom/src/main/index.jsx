@@ -1,16 +1,17 @@
 import CommonUI from "../common";
 import { useNavigate } from 'react-router-dom';
 import styled from "@emotion/styled"
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   max-width: 100vh; /* 앱 크기 기준 */
-  width: 100%;
+  width: 100vw;
   height: 100vh
   padding: 10px;
 `;
-const Body = styled.div`
+
+export const Body = styled.div`
     display: flex;
     flex-direction: column;
     margin: 20px 40px;
@@ -36,6 +37,7 @@ const ItemName = styled.div`
     font-weight: 700;
     font-size: 18px;
 `
+
 const Group = styled.div`
     display:flex;
     gap: 40px;
@@ -97,11 +99,15 @@ const AddDetail = styled.button`
         border-color: #6F6F7A; /* 클릭 시 테두리 색 */
     }
 `
+
 export default function MainPage() {
     const navigate = useNavigate();
 
     const handleClick = () => {
         navigate('/setgoal'); // '/detail' 페이지로 이동
+    };
+    const handleNavigate = (bigGoalId) => {
+        navigate('/detail', { state: { detailData, bigGoalId } });
     };
     //raindrop이 70퍼 이상이면 1순위, 50퍼이상이면 2순위, 그 이하는 3순위
     const raindrop = 70;
@@ -113,23 +119,122 @@ export default function MainPage() {
     } else {
         raindropImage = '/highlight3.png'; // 50 미만일 때
     }
-    //임시 더미데이터
-    const data = [
-        { itemName: "ADSP 자격증 따기", itemDate: "2024.09.27", raindrop: 70 },
-        { itemName: "토익 900넘기기", itemDate: "2024.09.27", raindrop: 60 },
-        { itemName: "한달동안 꾸준히 운동하기", itemDate: "2024.09.27", raindrop: 45 },
-        { itemName: "자소서 완성하기", itemDate: "2024.09.27", raindrop: 80 }
-    ];
+
+    /* 상세 목표 페이지 조회 API*/
+    // const handleNavigate = async (bigGoalId) => {
+    //     try {
+    //         const response = await axios.get(`/api/v1/small-goal/list/${bigGoalId}`);
+    //         const detailData = response.data;
+
+    //         // Navigate to /detail and pass itemName and detailData
+    //         navigate('/detail', {
+    //             state: {
+    //                 detailData: detailData
+    //             }
+    //         });
+    //     } catch (error) {
+    //         console.error("Failed to fetch data:", error);
+    //     }
+    // };
+
+    //임시 더미데이터(장기목표)
+    const bigGoalData = {
+        "information": [
+            {
+                "bigGoalId": 1,
+                "user": {
+                    "userId": 1,
+                    "email": "inha0319@naver.com"
+                },
+                "startDate": "2024-09-27T13:00:00",
+                "endDate": "2024-12-31T10:00:00",
+                "priority": "매우중요",
+                "content": "ADSP 따기",
+                "goalStatus": false
+            },
+            {
+                "bigGoalId": 3,
+                "user": {
+                    "userId": 1,
+                    "email": "inha0319@naver.com"
+                },
+                "startDate": "2024-09-27T13:00:00",
+                "endDate": "2024-12-31T10:00:00",
+                "priority": "중요",
+                "content": "오픽 시험보기",
+                "goalStatus": false
+            },
+            {
+                "bigGoalId": 2,
+                "user": {
+                    "userId": 1,
+                    "email": "inha0319@naver.com"
+                },
+                "startDate": "2024-09-27T13:00:00",
+                "endDate": "2024-12-31T10:00:00",
+                "priority": "보통",
+                "content": "정처기 따기",
+                "goalStatus": false
+            }
+        ]
+    }
+    const detailData = {
+        "information": [
+            {
+                "smallGoalId": 1,
+                "bigGoal": {
+                    "bigGoalId": 1,
+                    "user": {
+                        "userId": 1,
+                        "email": "1"
+                    },
+                    "startDate": "2024-09-27T13:00:00",
+                    "endDate": "2024-12-31T10:00:00",
+                    "priority": "매우중요",
+                    "content": "ADSP 시험보기",
+                    "goalStatus": false
+                },
+                "content": "세부목표 내용",
+                "goalStatus": false,
+                "smallGoalDate": "2024-09-27T16:51:06.735541"
+            },
+            {
+                "smallGoalId": 2,
+                "bigGoal": {
+                    "bigGoalId": 1,
+                    "user": {
+                        "userId": 1,
+                        "email": "1"
+                    },
+                    "startDate": "2024-09-27T13:00:00",
+                    "endDate": "2024-12-31T10:00:00",
+                    "priority": "매우중요",
+                    "content": "test",
+                    "goalStatus": false
+                },
+                "content": "세부목표 내용2",
+                "goalStatus": true,
+                "smallGoalDate": "2024-09-27T16:51:17.086046"
+            }
+        ]
+    }
+    // 날짜 형식 변경
+    const formattedEndDate = (date) => {
+        return new Date(date)
+            .toISOString()
+            .split('T')[0]
+            .replace(/-/g, '.');
+    }
     return (
         <Wrapper>
             <CommonUI />
             <Body>
                 <MyGoorm>MY 구름</MyGoorm>
-                {data.map((item, index) => {
+                {bigGoalData.information.map((item, index) => {
                     let raindropImage = '';
-                    if (item.raindrop >= 70) {
+                    if (item.priority === "매우중요") {
                         raindropImage = '/highlight1.png'; // 70 이상일 때
-                    } else if (item.raindrop >= 50) {
+                    } else if (item.priority === "중요") {
                         raindropImage = '/highlight2.png'; // 50 이상 70 미만일 때
                     } else {
                         raindropImage = '/highlight3.png'; // 50 미만일 때
@@ -137,10 +242,10 @@ export default function MainPage() {
 
                     return (
                         <div key={index} style={{ display: "flex", width: "100%", alignItems: "center", marginBottom: "10px" }}>
-                            <ListContainer>
-                                <ItemName>{item.itemName}</ItemName>
+                            <ListContainer onClick={() => handleNavigate(index + 1)}>
+                                <ItemName>{item.content}</ItemName>
                                 <Group>
-                                    <ItemDate>달성일: {item.itemDate}</ItemDate>
+                                    <ItemDate>달성일: {formattedEndDate(item.endDate)}</ItemDate>
                                     <div style={{ gap: "5px" }}>
                                         <UpdateIcon src="/updateIcon.png" />
                                         <RemoveIcon src="/deleteIcon.png" />
@@ -149,7 +254,7 @@ export default function MainPage() {
                             </ListContainer>
                             <RaindropContainer>
                                 <Raindrop src={raindropImage} />
-                                <RaindropText raindrop={item.raindrop}>{item.raindrop}%</RaindropText>
+                                <RaindropText raindrop={item.raindrop}>{item.raindrop}</RaindropText>
                             </RaindropContainer>
                         </div>
                     );

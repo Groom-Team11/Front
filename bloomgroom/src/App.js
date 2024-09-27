@@ -1,12 +1,20 @@
 
 import './App.css';
-import LoginPage from './login';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import StartRoutes from './routes/startRoutes';
+import PageRoutes from './routes/pageRoutes';
 import GoalPage from './GoalPage';
 
 function App() {
   return (
-    <div>
-    </div>
+    // <Router>
+    //   <StartRoutes />
+    //   <PageRoutes />
+    // </Router>
+    <GoalPage/>
+
   );
 }
 

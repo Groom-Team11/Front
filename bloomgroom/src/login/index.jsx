@@ -1,4 +1,4 @@
-import CommonUI from "../common";
+import { KAKAO_AUTH_URL } from './OAuth.jsx';
 import { useNavigate } from 'react-router-dom';
 import styled from "@emotion/styled"
 
@@ -30,7 +30,7 @@ const TitleText = styled.div`
   margin-bottom: 5vh;
 `;
 
-const LoginButton = styled.button`
+const LoginButton = styled.a`
   border: none;
   background-color: #BBD3E8;
 `;
@@ -42,7 +42,7 @@ const TalkIcon = styled.img`
 
 export default function LoginPage() {
     const navigate = useNavigate();
-
+    
     const loginCheck = () => {
         navigate('/main');
     };
@@ -51,7 +51,7 @@ export default function LoginPage() {
         <Wrapper>
             <CloudImage src="/cloudImage.png" />
             <TitleText>Bloom, Goorm</TitleText>
-            <LoginButton onClick={loginCheck}>
+            <LoginButton href={KAKAO_AUTH_URL}>
                 <TalkIcon src="/kakao_login.png" />
             </LoginButton>
         </Wrapper>

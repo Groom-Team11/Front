@@ -1,0 +1,31 @@
+.goal-header {
+    /* justify-content: space-between; */
+    align-items: center;
+    /* padding: 10px; */
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: flex-start; /* 텍스트와 아이콘을 왼쪽 정렬 */
+}
+
+.goal-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 8px; /* 텍스트와 아이콘 사이의 간격을 줄임 */
+}
+
+.goal-icon {
+    font-size: 18px;
+    color: #666;
+    align-items: center;
+}
+
+/* svg 아이콘의 크기 조정 */
+.goal-icon svg {
+    font-size: 18px;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}

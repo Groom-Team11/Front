@@ -1,11 +1,12 @@
 
 import './App.css';
 import LoginPage from './login';
+import GoalPage from './GoalPage';
 
 function App() {
   return (
     <div>
-      <LoginPage></LoginPage>
+      <GoalPage></GoalPage>
     </div>
   );
 }

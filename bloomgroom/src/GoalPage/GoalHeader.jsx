@@ -15,14 +15,28 @@ function GoalHeader({ view, setView }) {
     );
 }
 
+function GoalInput({goal, setGoal}){
+    return(
+        <input
+            type="text"
+            placeholder="이루고자하는 목표를 입력하세요"
+            value={goal}
+            onChange={(e) => setGoal(e.target.value)}
+            className="goal-input"
+          />
+    )
+}
+
 // 전체 컴포넌트
 function GoalSection() {
-  const [view, setView] = useState(false);
+  let [view, setView] = useState(false);
+  let [goal, setGoal] = useState(null);
 
   return (
     <div className="goal-section">
       <GoalHeader view={view} setView={setView} />
-      {view && <Dropdown />}      
+      {view && <Dropdown />}  
+      <GoalInput  goal={goal} setGoal={setGoal} />    
     </div>
   );
 }

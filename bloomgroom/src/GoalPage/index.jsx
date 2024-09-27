@@ -9,6 +9,7 @@ import { IoIosArrowUp } from "react-icons/io";
 
 import "./GoalPage.css";
 import GoalSection from "./GoalHeader";
+import PeriodSection from "./GoalPeriod";
 
 
 
@@ -37,27 +38,8 @@ const GoalPage = () => {
 
       {/* 하얀색 배경 영역 */}
       <div className="white-background">
-        <div className="goal-section">
         <GoalSection/>
-          <input
-            type="text"
-            placeholder="이루고자하는 목표를 입력하세요"
-            value={goal}
-            onChange={(e) => setGoal(e.target.value)}
-            className="goal-input"
-          />
-        </div>
-
-        <div className="date-section">
-          <h3>목표 달성 기간</h3>
-          <DatePicker
-            selected={date}
-            onChange={(selectedDate) => setDate(selectedDate)}
-            placeholderText="기간을 설정해주세요"
-            className="date-picker"
-            dateFormat="MMMM d, yyyy"
-          />
-        </div>
+        <PeriodSection/>
       </div>
     </div>
   );

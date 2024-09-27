@@ -10,6 +10,7 @@
 }
 
 .goal-title {
+    padding-left: 10px;
     font-size: 18px;
     font-weight: bold;
     color: #333;
@@ -29,3 +30,36 @@
     height: 24px;
     vertical-align: middle;
 }
+
+.goal-input {
+    padding-left: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-color: #A7A9B2;
+    border-radius: 20px;
+    border-width: 1px;
+    width: 100%;
+    margin-top: 0px;
+    /* box-sizing: border-box; */
+    transition: all 0.3s ease;
+}
+
+.goal-input::placeholder{
+    color: #8E8E8E;
+    ; /* placeholder 색상 */
+    font-size: 15px; /* placeholder 글꼴 크기 */
+}
+
+.goal-input:focus {
+    outline: none; /* 기본 포커스 아웃라인 제거 */
+    border: 1px solid #0095E5; /* 선택 시 1px 테두리 */
+    box-shadow: 0 0 0 3.2px rgba(32, 162, 232, 0.25); /* 외곽 그림자 추가 */
+}
+
+.goal-section {
+    padding: 0; /* 부모 요소의 패딩 제거 */
+    margin: 0 0 25px 0; /* 부모 요소의 마진 제거 */
+    width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+
+}
+

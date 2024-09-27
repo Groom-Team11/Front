@@ -195,7 +195,7 @@ export default function MainPage() {
                     "goalStatus": false
                 },
                 "content": "세부목표 내용",
-                "goalStatus": false,
+                "goalStatus": true,
                 "smallGoalDate": "2024-09-27T16:51:06.735541"
             },
             {

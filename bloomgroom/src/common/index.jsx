@@ -78,7 +78,41 @@ const CloseButton = styled.button`
     background-color: #2d2e39; /* 마우스 오버 시 색상 변경 */
   }
 `;
+const RainAnimation = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 40vh;
+  pointer-events: none;
+  z-index: 100;
+  overflow: hidden;
 
+  .drop {
+    position: absolute;
+    bottom: 100%;
+    width: 1px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.6);
+    animation: fall 1.5s infinite linear;
+    opacity: 0.7;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(100vh);
+    }
+  }
+
+  /* 비 방울의 위치, 속도, 크기를 좀 더 골고루 분포 */
+  .drop:nth-child(n) {
+    left: ${() => Math.random() * 100}vw; /* 화면 너비 전체에 골고루 배치 */
+    animation-duration: ${() => 1 + Math.random() * 2}s; /* 1초에서 3초 사이로 랜덤한 속도 */
+    animation-delay: ${() => Math.random() * 2}s; /* 비가 끊기지 않고 지속적으로 내리도록 딜레이 추가 */
+    opacity: ${() => 0.3 + Math.random() * 0.7}; /* 더 다양한 투명도 */
+    height: ${() => 40 + Math.random() * 30}px; /* 비 방울의 길이 다양화 */
+  }
+`;
 export default function CommonUI({ setLong, detailData }) {
     const [completedCount, setCompletedCount] = useState(0);
     const [cloudImage, setCloudImage] = useState('/cloud/cloud1.png'); // 처음 0/8 구름
@@ -131,6 +165,36 @@ export default function CommonUI({ setLong, detailData }) {
                         <div style={{ textAlign: "center", fontSize: "32px", color: "white", fontWeight: "500" }}>
                             {completedCount}%
                         </div>
+                    )}
+
+                    {/* completedCount가 100일 때 비 애니메이션 렌더링 */}
+                    {completedCount === 100 && (
+                        <>                        <RainAnimation>
+                            {Array.from({ length: 100 }, (_, i) => (
+                                <div key={i} className="drop" />
+
+                            ))}
+                        {/* 비오는 애니메이션 */}
+                        </RainAnimation>
+                        <RainAnimation>
+                        {Array.from({ length: 100 }, (_, i) => (
+                            <div key={i} className="drop" />
+
+                        ))}
+                    </RainAnimation>
+                    <RainAnimation>
+                        {Array.from({ length: 100 }, (_, i) => (
+                            <div key={i} className="drop" />
+
+                        ))}
+                    </RainAnimation>
+                    <RainAnimation>
+                        {Array.from({ length: 100 }, (_, i) => (
+                            <div key={i} className="drop" />
+
+                        ))}
+                    </RainAnimation>
+                    </>
                     )}
                 </div>
             </Background>

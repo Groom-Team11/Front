@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./DatePicker.css"; // CSS 파일 적용
 
-function DatePicker() {
+function DatePicker({ period, setPeriod, closeDatePicker }) { // closeDatePicker 추가
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
-  
+  // 날짜 선택 후 period 업데이트 및 DatePicker 닫기
+  useEffect(() => {
+    if (startDate && endDate) {
+      setPeriod(`${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`);
+      closeDatePicker(); // DatePicker 닫기
+    }
+  }, [startDate, endDate, setPeriod, closeDatePicker]);
 
   // 이전 달로 이동
   const goToPreviousMonth = () => {
@@ -24,15 +30,12 @@ function DatePicker() {
     const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
 
     if (!startDate || (startDate && endDate)) {
-      // 시작 날짜를 설정하거나, 이미 기간이 설정되어 있는 경우 다시 시작 날짜 설정
-      setStartDate(clickedDate);
-      setEndDate(null);
+      setStartDate(clickedDate); // 시작 날짜 설정
+      setEndDate(null); // 종료 날짜 초기화
     } else if (clickedDate >= startDate) {
-      // 종료 날짜가 시작 날짜보다 이후일 때만 종료 날짜 설정
-      setEndDate(clickedDate);
+      setEndDate(clickedDate); // 종료 날짜 설정
     } else {
-      // 종료 날짜가 시작 날짜보다 이전인 경우 종료 날짜 재설정
-      setStartDate(clickedDate);
+      setStartDate(clickedDate); // 종료 날짜가 시작 날짜보다 이전일 경우 다시 시작 날짜 설정
       setEndDate(null);
     }
   };
@@ -76,7 +79,7 @@ function DatePicker() {
             isStart ? "start" : "",
             isEnd ? "end" : "",
             isSelected ? "in-range" : ""
-          ].filter(Boolean).join(" ")}`.trim().replace(/\s+/g, ' ')}
+          ].filter(Boolean).join(" ")}`}
           onClick={() => handleDateClick(day)}
         >
           {day}

@@ -12,7 +12,7 @@ function PeriodInput({period, setPeriod, onInputClick}){
           <input
             type="text"
             placeholder="기간을 설정해주세요"
-            value={period ? period.toLocaleDateString() : ""}
+            value={period ? period : ""}
             onClick={onInputClick}
             className="period-input"            
             readOnly
@@ -25,15 +25,15 @@ function PeriodInput({period, setPeriod, onInputClick}){
 // 전체 컴포넌트
 function PeriodSection() {
   const [period, setPeriod] = useState();
-  const [openDatePicker, setOpenDatePicker] = useState(false);
-
-  const handleDateChange = (date) => {
-    setPeriod(date);
-    setOpenDatePicker(false); // 날짜 선택 후 데이트 피커 닫기
-  };
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   const toggleDatePicker = () => {
-    setOpenDatePicker(!openDatePicker);
+    setIsDatePickerOpen(!isDatePickerOpen); // 열고 닫기 상태 토글
+  };
+
+  // DatePicker를 닫는 함수
+  const closeDatePicker = () => {
+    setIsDatePickerOpen(false); // DatePicker 닫기
   };
 
 
@@ -45,15 +45,16 @@ function PeriodSection() {
         <PeriodInput
         period={period}
         setPeriod={setPeriod}
-        onInputClick={toggleDatePicker} // 입력란이나 아이콘 클릭 시 데이트 피커 열기
+        onInputClick={toggleDatePicker}
+        readOnly
       />
-      {openDatePicker && (
+      {isDatePickerOpen && (
         <DatePicker
-          selected={period}
-          onChange={handleDateChange}
-          inline
+          period={period}
+          setPeriod={setPeriod} // 기간을 업데이트하는 함수 전달
+          closeDatePicker={closeDatePicker} // DatePicker를 닫는 함수 전달
         />
-      )}  
+      )}      
     </div>
   );
 }

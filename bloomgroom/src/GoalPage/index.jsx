@@ -18,7 +18,7 @@ const GoalPage = () => {
   const [date, setDate] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("장기목표");
   const [view, setView] = useState(false); 
-  const [period, setPeriod] = useState(""); // period 상태를 상위 컴포넌트에서 관리
+  const [period, setPeriod] = useState(); // period 상태를 상위 컴포넌트에서 관리
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false); // DatePicker 열림 여부
 
   // DatePicker 열기/닫기 함수
@@ -49,7 +49,7 @@ const GoalPage = () => {
       <div className="white-background">
         <GoalSection/>
         <PeriodSection period={period} setPeriod={setPeriod}/>
-        {period !== '' && <button className="submit-btn">설정 완료</button>}
+        {period && <button className="submit-btn">설정 완료</button>}
       </div>
     </div>
   );

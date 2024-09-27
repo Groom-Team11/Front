@@ -44,6 +44,9 @@
     justify-content: flex-start; /* 텍스트와 아이콘을 왼쪽 정렬 */
 }
 
+.period-section {
+  position: relative; /* 기준 요소 */
+}
 
   
 .period-input::placeholder {
@@ -65,4 +68,21 @@ font-size: 15px;
     transform: translateY(-50%); /* 중앙에 정확하게 맞추기 위해 사용 */
     font-size: 16px;
     cursor: pointer;
+}
+
+.date-picker {
+  position: absolute; /* period-section을 기준으로 위치 */
+  top: -120%; /* period-section 위에 위치 */
+  left: 0;
+  right: 0; /* 가로 양쪽 0으로 설정 */
+  margin: auto; /* 가로 가운데 정렬 */
+  z-index: 10; /* 다른 요소 위에 표시되도록 */
+  width: 250px; /* 원하는 width 설정 */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 5px;
+  font-family: Arial, sans-serif;
+  border: none;
 }

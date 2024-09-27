@@ -6,7 +6,6 @@ import GoalPage from './GoalPage';
 function App() {
   return (
     <div>
-      <GoalPage></GoalPage>
     </div>
   );
 }

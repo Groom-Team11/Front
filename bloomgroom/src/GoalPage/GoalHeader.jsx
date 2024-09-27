@@ -29,10 +29,9 @@ function GoalInput({goal, setGoal}){
 }
 
 // 전체 컴포넌트
-function GoalSection() {
-  let [view, setView] = useState(false);
-  let [goal, setGoal] = useState(null);
-  let [selectedMenu, setSelectedMenu] = useState('');
+function GoalSection({view, setView, goal, setGoal, selectedMenu, setSelectedMenu}) {
+  
+  
 
   return (
     <div className="goal-section">

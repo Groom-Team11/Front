@@ -23,8 +23,7 @@ function PeriodInput({period, setPeriod, onInputClick}){
 }
 
 // 전체 컴포넌트
-function PeriodSection() {
-  const [period, setPeriod] = useState();
+function PeriodSection({period, setPeriod}) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   const toggleDatePicker = () => {
@@ -43,11 +42,11 @@ function PeriodSection() {
           <span className="period-title">목표 달성 기간</span>
         </div>
         <PeriodInput
-        period={period}
-        setPeriod={setPeriod}
-        onInputClick={toggleDatePicker}
-        readOnly
-      />
+          period={period}
+          setPeriod={setPeriod}
+          onInputClick={toggleDatePicker}
+          readOnly
+        />
       {isDatePickerOpen && (
         <DatePicker
           period={period}

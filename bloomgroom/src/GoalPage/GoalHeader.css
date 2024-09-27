@@ -18,17 +18,23 @@
 }
 
 .goal-icon {
-    font-size: 18px;
-    color: #666;
+    font-size: 15px;
+    padding: 5px;
     align-items: center;
+    margin-right: 5px;
+}
+
+.selected-menu {
+    size: 16px;
 }
 
 /* svg 아이콘의 크기 조정 */
 .goal-icon svg {
     font-size: 18px;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     vertical-align: middle;
+    margin-top: 2px;
 }
 
 .goal-input {
@@ -36,6 +42,7 @@
     padding-top: 12px;
     padding-bottom: 12px;
     border-color: #A7A9B2;
+    background: #F6F6F7;
     border-radius: 20px;
     border-width: 1px;
     width: 100%;

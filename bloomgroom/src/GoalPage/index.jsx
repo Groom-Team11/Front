@@ -1,7 +1,7 @@
 // GoalPage.js
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import Dropdown from "./Dropdown";
+import PriorityDropdown from "./PriorityDropdown";
 import "react-datepicker/dist/react-datepicker.css";
 import cloudImg from './cloud.png';
 import { IoIosArrowDown } from "react-icons/io";

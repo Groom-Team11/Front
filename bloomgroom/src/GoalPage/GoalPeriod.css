@@ -1,3 +1,37 @@
+/* input과 아이콘을 감싸는 컨테이너 */
+/* input과 아이콘을 감싸는 컨테이너 */
+.input-container {
+    position: relative;
+    width: 200px; /* input 크기에 맞게 컨테이너도 동일한 너비로 설정 */
+    display: inline-block; /* 크기를 입력 필드에 맞춤 */
+}
+  
+.period-input {
+    width: 100%; /* 컨테이너 너비에 맞게 자동 조정 */
+    padding: 8px 35px 8px 12px; /* 아이콘이 들어갈 자리 확보 (오른쪽 35px) */
+    border: 1px solid #A7A9B2;
+    background: #F6F6F7;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+  .period-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 8px; /* 텍스트와 아이콘 사이의 간격을 줄임 */
+    padding-left: 10px;
+}
+
+/* input-container는 자동 너비를 사용 */
+.input-container {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
 .period-header {
     /* justify-content: space-between; */
     align-items: center;
@@ -9,33 +43,25 @@
     justify-content: flex-start; /* 텍스트와 아이콘을 왼쪽 정렬 */
 }
 
-.period-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-right: 8px; /* 텍스트와 아이콘 사이의 간격을 줄임 */
-    padding-left: 10px;
-}
 
-.period-input {
-    /* width: 100%; 부모 요소의 너비를 가득 채움 */
-    padding: 8px 10px; /* 상하 10px, 좌우 12px의 패딩 적용 */
-    border: 1px solid #A7A9B2; /* 회색 테두리 */
-    border-radius: 4px; /* 둥근 테두리 */
-    font-size: 14px; /* 글자 크기 */
-    height: auto; /* 내용에 따라 높이를 자동으로 조정 */
-    box-sizing: border-box; /* 패딩과 보더가 너비 안에 포함되도록 설정 */
-    transition: all 0.3s ease; /* 부드러운 전환 */
+  
+.period-input::placeholder {
+color: #8E8E8E;
+font-size: 15px;
 }
-
-.period-input::placeholder{
-    color: #8E8E8E;
-    ; /* placeholder 색상 */
-    font-size: 15px; /* placeholder 글꼴 크기 */
-}
-
-.period-input:focus {
-    outline: none; /* 기본 포커스 아웃라인 제거 */
-    border: 1px solid #0095E5; /* 선택 시 1px 테두리 */
-    box-shadow: 0 0 0 3.2px rgba(32, 162, 232, 0.25); /* 외곽 그림자 추가 */
+  
+  .period-input:focus {
+    outline: none;
+    border: 1px solid #0095E5;
+    box-shadow: 0 0 0 3.2px rgba(32, 162, 232, 0.25);
+  }
+  
+  /* 달력 아이콘을 input 내부에 배치 */
+.calendar-icon {
+    position: absolute;
+    right: 10px; /* input 상자의 오른쪽 안쪽에 위치 */
+    top: 50%; /* 세로 중앙에 위치 */
+    transform: translateY(-50%); /* 중앙에 정확하게 맞추기 위해 사용 */
+    font-size: 16px;
+    cursor: pointer;
 }

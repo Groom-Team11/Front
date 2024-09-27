@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import PriorityDropdown from "./PriorityDropdown";
 import "react-datepicker/dist/react-datepicker.css";
-import cloudImg from './cloud.png';
+import cloudImg from './img/cloud1.png';
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 
@@ -28,9 +28,10 @@ const GoalPage = () => {
       {/* 파란색 배경 영역 */}
       <div className="blue-background">
         <header className="goal-page-header">
-          <img
+          <img 
             src={cloudImg}
             alt="Cloud"
+            style={{paddingTop: "50px", paddingBottom: "70px"}}
             className="cloud-image"
           />
         </header>

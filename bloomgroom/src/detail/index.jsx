@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { Wrapper, Body } from '../main/index';
 import CommonUI from '../common';
 import styled from "@emotion/styled"
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 const BigGoal = styled.div`
     font-size: 24px;
@@ -127,7 +128,7 @@ export default function DetailPage() {
         setCheckedStates(newCheckedStates);
         // API 호출하여 업데이트할 수 있습니다.
     };
-
+    const isDisabled = localStorage.getItem('isDisabled');
     return (
         <Wrapper>
             <CommonUI setLong={true} detailData={detailData}></CommonUI>
@@ -144,7 +145,7 @@ export default function DetailPage() {
                         <DetailGoal>세부목표</DetailGoal>
                         {/* 세부 목표 리스트 출력 */}
                         {detailData.information.map((detail, index) => (
-                            <DetailWrapper key={index}>
+                            <DetailWrapper disabled={isDisabled} key={index}>
                                 <div style={{ display: "flex", gap: "10px" }}>
                                     <Checkbox
                                         type="checkbox"
@@ -160,7 +161,7 @@ export default function DetailPage() {
                         ))}
                         <div style={{display:"flex", alignItems:"center", gap:"20px", borderBottom: "0.2px solid #474849", padding:"20px 0px 10px 0px"}}>
                             <div style={{fontSize:"18px"}}>+</div>
-                            <AddDetail placeholder="세부목표를 입력해주세요."></AddDetail>
+                            <AddDetail placeholder="세부목표를 입력해주세요." disabled={isDisabled}></AddDetail>
                         </div>
                     </>
                 ) : (

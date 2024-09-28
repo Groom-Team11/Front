@@ -108,6 +108,7 @@ export default function MainPage() {
     };
     const handleNavigate = (bigGoalId) => {
         navigate('/detail', { state: { detailData, bigGoalId } });
+        localStorage.setItem('bigGoalId', bigGoalId)
     };
     //raindrop이 70퍼 이상이면 1순위, 50퍼이상이면 2순위, 그 이하는 3순위
     const raindrop = 70;

@@ -49,7 +49,7 @@ export default function LoginPage() {
 
     return (
         <Wrapper>
-            <CloudImage src="/cloudImage.png" />
+            <CloudImage src="/cloud/cloud1.png" />
             <TitleText>Bloom, Goorm</TitleText>
             <LoginButton href={KAKAO_AUTH_URL}>
                 <TalkIcon src="/kakao_login.png" />

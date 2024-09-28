@@ -99,17 +99,23 @@ const ModalHeader = styled.div`
     flex-direction: row;
 `;
 
-const ModalIcon = styled.img`
+const ModalIcon = styled.div`
     height: 100%;
-    width: 6vh;
+    width: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const ModalTitle = styled.div`
     height: 100%;
     width: 100%;
     color: white;
+    font-size: 2vh;
+    font-weight: 500;
     display: flex;
     align-items: center;
+    padding-bottom: 0.2vh;
 `;
 
 const CloseButton = styled.button`
@@ -121,13 +127,22 @@ const CloseButton = styled.button`
     color: white;
     cursor: pointer;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+`;
+
+const ModalInnerIcon = styled.img`
+    width: 4vw;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    height: auto;
 `;
 
 const ModalContent = styled.div`
     max-width: 400px;
-    max-height: 400px;
-    height: 90vw;
+    max-height: 470px;
     width: 70vw;
+    height: 90vw;
     background-color: white;
     text-align: center;
 `;
@@ -144,7 +159,13 @@ const ModalContentInner = styled.div`
 const ModalInnerImg = styled.img`
     height: 40vw;
     width: 40vw;
+    max-height: 220px;
+    max-width: 220px;
     background-color: #eee;
+`;
+
+const FlowerName = styled.div`
+    width: 10vw;
 `;
 
 
@@ -192,14 +213,19 @@ export default function Flower() {
             <ModalOverlay show={showModal} onClick={closeModal}>
                 <ModalContent>
                     <ModalHeader>
-                        <ModalIcon />
+                        <ModalIcon>
+                            <ModalInnerIcon src='./ModalIcon.png' />
+                        </ModalIcon>
                         <ModalTitle>Your Bloom</ModalTitle>
-                        <CloseButton onClick={closeModal}>x</CloseButton>
+                        <CloseButton onClick={closeModal}>
+                            <ModalInnerIcon src='./ModalX.png' />
+                        </CloseButton>
                     </ModalHeader>
                     <ModalContentInner>
                         <ModalInnerImg>
                             
                         </ModalInnerImg>
+                        
 
                         <h2>{selectedFlower + 1}</h2>
                         {selectedFlower !== null && (

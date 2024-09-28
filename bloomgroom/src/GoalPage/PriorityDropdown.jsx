@@ -3,11 +3,11 @@ import { CSSTransition } from "react-transition-group";
 import "./PriorityDropdown.css"; // CSS 파일도 이름에 맞게 변경
 
 // checkMenu 함수에서 view와 selectedMenu를 업데이트
-function checkMenu(props, setActiveMenu, setView, setSelectedMenu) {
+function checkMenu(props, setActiveMenu, setView, setPriority) {
   if (props.goToMenu) {
     setActiveMenu(props.goToMenu); // 메뉴 전환
     setView(false); // 드롭다운 닫기
-    setSelectedMenu(props.goToMenu); // 선택된 메뉴 값 설정
+    setPriority(props.goToMenu); // 선택된 메뉴 값 설정
   }
 }
 

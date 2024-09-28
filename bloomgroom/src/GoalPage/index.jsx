@@ -1,5 +1,4 @@
-// GoalPage.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import PriorityDropdown from "./PriorityDropdown";
 import "react-datepicker/dist/react-datepicker.css";
@@ -35,25 +34,26 @@ const GoalPage = () => {
 
   const handlePostRequest = async () => {
 
-    const postData = {
-      startDate: startDate,
-      endDate: endDate,
-      priority: priority,
-      content: content
-    };
-    console.log(postData);
-    
-    axios.post('https://api/v1/big-goal', postData, {
-      headers: {
-        'Authorization': `Bearer ${token}` // JWT 토큰을 헤더에 포함 (토큰 인증)
-      }
-    }).then(response => {
+    try {
+      const postData = {
+        startDate: startDate,
+        endDate: endDate,
+        priority: priority,
+        content: content,
+      };
+
+      const response = await axios.post('http://3.36.171.123/api/v1/big-goal', postData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('jwtToken')
+        },
+      });
       setData(response.data);
-    })
-    .catch(error => {
-      console.error('GET 요청 에러:', error);
-    });
-  }
+      console.log('데이터 전송 성공:', response.data);
+    } catch (error) {
+      console.error('POST 요청 에러:', error.response?.data || error.message);
+    }
+  };
 
 
   // DatePicker 열기/닫기 함수

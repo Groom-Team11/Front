@@ -7,7 +7,7 @@ function StartRoutes() {
    return (
       <Routes>
          <Route path="/login" element={<LoginPage />} />
-         <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler />} />
+         <Route path="/oauth2/callback/kakao" element={<KakaoRedirectHandler />} />
       </Routes>
    );
 }

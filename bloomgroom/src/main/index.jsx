@@ -163,46 +163,7 @@ export default function MainPage() {
         };
         fetchBigGoalData(); // 함수 호출
     }, []); // 컴포넌트가 마운트될 때만 실행
-    // const bigGoalData = {
-    //     "information": [
-    //         {
-    //             "bigGoalId": 1,
-    //             "user": {
-    //                 "userId": 1,
-    //                 "email": "inha0319@naver.com"
-    //             },
-    //             "startDate": "2024-09-27T13:00:00",
-    //             "endDate": "2024-12-31T10:00:00",
-    //             "priority": "매우중요",
-    //             "content": "ADSP 따기",
-    //             "goalStatus": false
-    //         },
-    //         {
-    //             "bigGoalId": 3,
-    //             "user": {
-    //                 "userId": 1,
-    //                 "email": "inha0319@naver.com"
-    //             },
-    //             "startDate": "2024-09-27T13:00:00",
-    //             "endDate": "2024-12-31T10:00:00",
-    //             "priority": "중요",
-    //             "content": "오픽 시험보기",
-    //             "goalStatus": false
-    //         },
-    //         {
-    //             "bigGoalId": 2,
-    //             "user": {
-    //                 "userId": 1,
-    //                 "email": "inha0319@naver.com"
-    //             },
-    //             "startDate": "2024-09-27T13:00:00",
-    //             "endDate": "2024-12-31T10:00:00",
-    //             "priority": "보통",
-    //             "content": "정처기 따기",
-    //             "goalStatus": false
-    //         }
-    //     ]
-    //}
+
     const [detailData, setDetailData] = useState(null);
 
     useEffect(() => {
@@ -223,47 +184,6 @@ export default function MainPage() {
         console.log(detailData)
     }, [localStorage.getItem('bigGoalId')]); // 컴포넌트가 마운트될 때 한 번만 실행
 
-    // const detailData = {
-    //     "information": [
-    //         {
-    //             "smallGoalId": 1,
-    //             "bigGoal": {
-    //                 "bigGoalId": 1,
-    //                 "user": {
-    //                     "userId": 1,
-    //                     "email": "1"
-    //                 },
-    //                 "startDate": "2024-09-27T13:00:00",
-    //                 "endDate": "2024-12-31T10:00:00",
-    //                 "priority": "매우중요",
-    //                 "content": "ADSP 시험보기",
-    //                 "goalStatus": false
-    //             },
-    //             "content": "세부목표 내용",
-    //             "goalStatus": true,
-    //             "smallGoalDate": "2024-09-27T16:51:06.735541"
-    //         },
-    //         {
-    //             "smallGoalId": 2,
-    //             "bigGoal": {
-    //                 "bigGoalId": 1,
-    //                 "user": {
-    //                     "userId": 1,
-    //                     "email": "1"
-    //                 },
-    //                 "startDate": "2024-09-27T13:00:00",
-    //                 "endDate": "2024-12-31T10:00:00",
-    //                 "priority": "매우중요",
-    //                 "content": "test",
-    //                 "goalStatus": false
-    //             },
-    //             "content": "세부목표 내용2",
-    //             "goalStatus": true,
-    //             "smallGoalDate": "2024-09-27T16:51:17.086046"
-    //         }
-    //     ]
-    // }
-    // 날짜 형식 변경
     const formattedEndDate = (date) => {
         return new Date(date)
             .toISOString()
@@ -283,6 +203,9 @@ export default function MainPage() {
         } catch (error) {
             console.error('삭제 실패', error);
         }
+    };
+    const onClickUpdate = () => {
+
     };
 
     return (

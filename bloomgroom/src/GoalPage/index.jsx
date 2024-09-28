@@ -11,16 +11,50 @@ import "./index.css";
 import GoalSection from "./GoalHeader";
 import PeriodSection from "./GoalPeriod";
 
+import axios from "axios";
+
 
 
 const GoalPage = () => {
-  const [goal, setGoal] = useState(null);
+
+  //목표
+  const [content, setContent] = useState(null);
+  //우선순위
+  let [priority, setPriority] = useState('');
+  //목표 기한
   const [date, setDate] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("장기목표");
   const [view, setView] = useState(false); 
   const [period, setPeriod] = useState(""); // period 상태를 상위 컴포넌트에서 관리
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false); // DatePicker 열림 여부
-  let [selectedMenu, setSelectedMenu] = useState('');
+
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [token, setToken] = useState(null);
+  const [data, setData] = useState(null);
+
+  const handlePostRequest = async () => {
+
+    const postData = {
+      startDate: startDate,
+      endDate: endDate,
+      priority: priority,
+      content: content
+    };
+    console.log(postData);
+    
+    axios.post('https://api/v1/big-goal', postData, {
+      headers: {
+        'Authorization': `Bearer ${token}` // JWT 토큰을 헤더에 포함 (토큰 인증)
+      }
+    }).then(response => {
+      setData(response.data);
+    })
+    .catch(error => {
+      console.error('GET 요청 에러:', error);
+    });
+  }
+
 
   // DatePicker 열기/닫기 함수
   const toggleDatePicker = () => {
@@ -40,7 +74,6 @@ const GoalPage = () => {
           <img 
             src={cloudImg}
             alt="Cloud"
-            style={{paddingTop: "50px", paddingBottom: "70px"}}
             className="cloud-image"
           />
         </header>
@@ -48,12 +81,15 @@ const GoalPage = () => {
 
       {/* 하얀색 배경 영역 */}
       <div className="white-background">
-        <GoalSection view={view} setView={setView} goal={goal} setGoal={setGoal} selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu}/>
-        <PeriodSection period={period} setPeriod={setPeriod}/>
-        {period && goal && selectedMenu && (
+        <GoalSection view={view} setView={setView} content={content} setContent={setContent} priority={priority} setPriority={setPriority}/>
+        <PeriodSection period={period} setPeriod={setPeriod} setStartDate={setStartDate} setEndDate={setEndDate} startDate={startDate} endDate={endDate}/>
+        {period && content && priority && (
           <button 
             className="submit-btn" 
-            onClick={() => console.log({ goal, period, selectedMenu })}
+            onClick={() => {
+              console.log({ content, period, priority, startDate, endDate })
+              handlePostRequest();
+          }}
           >
             설정 완료
           </button>

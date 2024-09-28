@@ -160,6 +160,8 @@
     font-size: 21px;
   }
 
+  
+
   .react-calendar__navigation__label__labelText--from {
     font-family: Poppins;
     font-size: 14px;
@@ -175,6 +177,7 @@
 
   .react-calendar__navigation__label{
     padding-top: 5px;
+    pointer-events: none;
   }
 
   .react-calendar{
@@ -204,13 +207,12 @@
 }
 
 .icon {
-  width: 20px; /* 아이콘 크기 설정 */
+  width: 23px; /* 아이콘 크기 설정 */
   position: absolute;
   top: 50%; /* 상단에서 50% */
   left: 50%; /* 수평 중앙 정렬 */
   transform: translate(-50%, -50%); /* 정확한 중앙 배치 */
   z-index: 2; /* 숫자 위에 표시되도록 z-index 설정 */
-  background-color: white;
 }
 
 

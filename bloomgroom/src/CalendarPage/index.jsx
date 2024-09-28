@@ -10,8 +10,10 @@ const CalendarPage = () => {
 
     const [value, onChange] = useState(new Date());
     const progress = '66%';
+
     const startDate = new Date(2024, 8, 3); // 2024년 9월 3일
     const endDate = new Date(2024, 8, 15); // 2024년 9월 15일
+    
     const eventDates = [
         new Date(2024, 8, 5), // 2024년 9월 5일 (이벤트)
         new Date(2024, 8, 7), // 2024년 9월 7일 (이벤트)

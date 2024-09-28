@@ -1,6 +1,8 @@
 import CommonUI from "../common";
 import { useNavigate } from 'react-router-dom';
 import styled from "@emotion/styled"
+import { useState, useEffect } from "react";
+import axios from "axios";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -107,7 +109,7 @@ export default function MainPage() {
         navigate('/setgoal'); // '/detail' 페이지로 이동
     };
     const handleNavigate = (bigGoalId) => {
-        navigate('/detail', { state: { detailData, bigGoalId } });
+        navigate('/detail', { state: { detailData, bigGoalId,bigGoalData } });
         localStorage.setItem('bigGoalId', bigGoalId)
     };
     //raindrop이 70퍼 이상이면 1순위, 50퍼이상이면 2순위, 그 이하는 3순위
@@ -139,86 +141,128 @@ export default function MainPage() {
     // };
 
     //임시 더미데이터(장기목표)
-    const bigGoalData = {
-        "information": [
-            {
-                "bigGoalId": 1,
-                "user": {
-                    "userId": 1,
-                    "email": "inha0319@naver.com"
-                },
-                "startDate": "2024-09-27T13:00:00",
-                "endDate": "2024-12-31T10:00:00",
-                "priority": "매우중요",
-                "content": "ADSP 따기",
-                "goalStatus": false
-            },
-            {
-                "bigGoalId": 3,
-                "user": {
-                    "userId": 1,
-                    "email": "inha0319@naver.com"
-                },
-                "startDate": "2024-09-27T13:00:00",
-                "endDate": "2024-12-31T10:00:00",
-                "priority": "중요",
-                "content": "오픽 시험보기",
-                "goalStatus": false
-            },
-            {
-                "bigGoalId": 2,
-                "user": {
-                    "userId": 1,
-                    "email": "inha0319@naver.com"
-                },
-                "startDate": "2024-09-27T13:00:00",
-                "endDate": "2024-12-31T10:00:00",
-                "priority": "보통",
-                "content": "정처기 따기",
-                "goalStatus": false
+    const [bigGoalData, setBigGoalData] = useState([]);
+
+    // useEffect를 사용하여 컴포넌트가 렌더링될 때 API 호출
+    useEffect(() => {
+        const fetchBigGoalData = async () => {
+            try {
+                // GET 요청 보내기
+                const response = await axios.get('http://3.36.171.123/api/v1/big-goal/list', {
+                    headers: {
+                        Authorization: `${localStorage.getItem('jwtToken')}`,  // Bearer 토큰 헤더 추가
+                    }
+                });
+
+                // 응답 데이터를 bigGoalData에 저장
+                setBigGoalData(response.data);
+                console.log(bigGoalData)
+            } catch (error) {
+                console.error('데이터 가져오기 실패', error);
             }
-        ]
-    }
-    const detailData = {
-        "information": [
-            {
-                "smallGoalId": 1,
-                "bigGoal": {
-                    "bigGoalId": 1,
-                    "user": {
-                        "userId": 1,
-                        "email": "1"
+        };
+        fetchBigGoalData(); // 함수 호출
+    }, []); // 컴포넌트가 마운트될 때만 실행
+    // const bigGoalData = {
+    //     "information": [
+    //         {
+    //             "bigGoalId": 1,
+    //             "user": {
+    //                 "userId": 1,
+    //                 "email": "inha0319@naver.com"
+    //             },
+    //             "startDate": "2024-09-27T13:00:00",
+    //             "endDate": "2024-12-31T10:00:00",
+    //             "priority": "매우중요",
+    //             "content": "ADSP 따기",
+    //             "goalStatus": false
+    //         },
+    //         {
+    //             "bigGoalId": 3,
+    //             "user": {
+    //                 "userId": 1,
+    //                 "email": "inha0319@naver.com"
+    //             },
+    //             "startDate": "2024-09-27T13:00:00",
+    //             "endDate": "2024-12-31T10:00:00",
+    //             "priority": "중요",
+    //             "content": "오픽 시험보기",
+    //             "goalStatus": false
+    //         },
+    //         {
+    //             "bigGoalId": 2,
+    //             "user": {
+    //                 "userId": 1,
+    //                 "email": "inha0319@naver.com"
+    //             },
+    //             "startDate": "2024-09-27T13:00:00",
+    //             "endDate": "2024-12-31T10:00:00",
+    //             "priority": "보통",
+    //             "content": "정처기 따기",
+    //             "goalStatus": false
+    //         }
+    //     ]
+    //}
+    const [detailData, setDetailData] = useState(null);
+
+    useEffect(() => {
+        const fetchDetailData = async () => {
+            try {
+                const response = await axios.get(`http://3.36.171.123/api/v1/small-goal/list/${localStorage.getItem('bigGoalId')}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,  // Bearer 추가
                     },
-                    "startDate": "2024-09-27T13:00:00",
-                    "endDate": "2024-12-31T10:00:00",
-                    "priority": "매우중요",
-                    "content": "ADSP 시험보기",
-                    "goalStatus": false
-                },
-                "content": "세부목표 내용",
-                "goalStatus": true,
-                "smallGoalDate": "2024-09-27T16:51:06.735541"
-            },
-            {
-                "smallGoalId": 2,
-                "bigGoal": {
-                    "bigGoalId": 1,
-                    "user": {
-                        "userId": 1,
-                        "email": "1"
-                    },
-                    "startDate": "2024-09-27T13:00:00",
-                    "endDate": "2024-12-31T10:00:00",
-                    "priority": "매우중요",
-                    "content": "test",
-                    "goalStatus": false
-                },
-                "content": "세부목표 내용2",
-                "goalStatus": true,
-                "smallGoalDate": "2024-09-27T16:51:17.086046"
+                });
+                setDetailData(response.data); // 응답 데이터를 detailData에 저장
+                console.log("Detail data fetched:", response.data);
+            } catch (error) {
+                console.error("Failed to fetch detail data:", error);
             }
-        ]
-    }
+        };
+        fetchDetailData(); // 함수 호출
+        console.log(detailData)
+    }, [localStorage.getItem('bigGoalId')]); // 컴포넌트가 마운트될 때 한 번만 실행
+
+    // const detailData = {
+    //     "information": [
+    //         {
+    //             "smallGoalId": 1,
+    //             "bigGoal": {
+    //                 "bigGoalId": 1,
+    //                 "user": {
+    //                     "userId": 1,
+    //                     "email": "1"
+    //                 },
+    //                 "startDate": "2024-09-27T13:00:00",
+    //                 "endDate": "2024-12-31T10:00:00",
+    //                 "priority": "매우중요",
+    //                 "content": "ADSP 시험보기",
+    //                 "goalStatus": false
+    //             },
+    //             "content": "세부목표 내용",
+    //             "goalStatus": true,
+    //             "smallGoalDate": "2024-09-27T16:51:06.735541"
+    //         },
+    //         {
+    //             "smallGoalId": 2,
+    //             "bigGoal": {
+    //                 "bigGoalId": 1,
+    //                 "user": {
+    //                     "userId": 1,
+    //                     "email": "1"
+    //                 },
+    //                 "startDate": "2024-09-27T13:00:00",
+    //                 "endDate": "2024-12-31T10:00:00",
+    //                 "priority": "매우중요",
+    //                 "content": "test",
+    //                 "goalStatus": false
+    //             },
+    //             "content": "세부목표 내용2",
+    //             "goalStatus": true,
+    //             "smallGoalDate": "2024-09-27T16:51:17.086046"
+    //         }
+    //     ]
+    // }
     // 날짜 형식 변경
     const formattedEndDate = (date) => {
         return new Date(date)
@@ -226,40 +270,59 @@ export default function MainPage() {
             .split('T')[0]
             .replace(/-/g, '.');
     }
+    const onClickDelete = async (bigGoalId) => {
+        try {
+            // DELETE 요청 보내기
+            await axios.delete(`http://3.36.171.123/api/v1/big-goal/${bigGoalId}`, {
+                headers: {
+                    Authorization: `${localStorage.getItem('jwtToken')}`,  // Bearer 토큰 헤더 추가
+                }
+            });
+            // 삭제 후 페이지 새로고침
+            window.location.reload();
+        } catch (error) {
+            console.error('삭제 실패', error);
+        }
+    };
+
     return (
         <Wrapper>
             <CommonUI />
             <Body>
                 <MyGoorm>MY 구름</MyGoorm>
-                {bigGoalData.information.map((item, index) => {
-                    let raindropImage = '';
-                    if (item.priority === "매우중요") {
-                        raindropImage = '/highlight1.png'; // 70 이상일 때
-                    } else if (item.priority === "중요") {
-                        raindropImage = '/highlight2.png'; // 50 이상 70 미만일 때
-                    } else {
-                        raindropImage = '/highlight3.png'; // 50 미만일 때
-                    }
+                {bigGoalData?.information && Array.isArray(bigGoalData.information) && bigGoalData.information.length > 0 ? (
+                    bigGoalData.information.map((item, index) => {
+                        let raindropImage = '';
+                        if (item.priority === "매우중요") {
+                            raindropImage = '/highlight1.png'; // 70 이상일 때
+                        } else if (item.priority === "중요") {
+                            raindropImage = '/highlight2.png'; // 50 이상 70 미만일 때
+                        } else {
+                            raindropImage = '/highlight3.png'; // 50 미만일 때
+                        }
 
-                    return (
-                        <div key={index} style={{ display: "flex", width: "100%", alignItems: "center", marginBottom: "10px" }}>
-                            <ListContainer onClick={() => handleNavigate(index + 1)}>
-                                <ItemName>{item.content}</ItemName>
-                                <Group>
-                                    <ItemDate>달성일: {formattedEndDate(item.endDate)}</ItemDate>
-                                    <div style={{ gap: "5px" }}>
-                                        <UpdateIcon src="/updateIcon.png" />
-                                        <RemoveIcon src="/deleteIcon.png" />
-                                    </div>
-                                </Group>
-                            </ListContainer>
-                            <RaindropContainer>
-                                <Raindrop src={raindropImage} />
-                                <RaindropText raindrop={item.raindrop}>{item.raindrop}</RaindropText>
-                            </RaindropContainer>
-                        </div>
-                    );
-                })}
+                        return (
+                            <div key={index} style={{ display: "flex", width: "100%", alignItems: "center", marginBottom: "10px" }}>
+                                <ListContainer>
+                                    <ItemName onClick={() => handleNavigate(index + 1)}>{item?.content}</ItemName>
+                                    <Group>
+                                        <ItemDate>달성일: {formattedEndDate(item?.endDate)}</ItemDate>
+                                        <div style={{ gap: "5px" }}>
+                                            <UpdateIcon src="/updateIcon.png" />
+                                            <RemoveIcon src="/deleteIcon.png" onClick={() => onClickDelete(item.bigGoalId)} />
+                                        </div>
+                                    </Group>
+                                </ListContainer>
+                                <RaindropContainer>
+                                    <Raindrop src={raindropImage} />
+                                    <RaindropText raindrop={item?.raindrop}>{item?.raindrop}</RaindropText>
+                                </RaindropContainer>
+                            </div>
+                        );
+                    })
+                ) : (
+                    <div>데이터가 없습니다</div> // 데이터를 불러오는 중일 때 보여줄 메시지
+                )}
                 <AddDetail onClick={handleClick}>+</AddDetail>
             </Body>
         </Wrapper>

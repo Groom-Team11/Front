@@ -86,15 +86,45 @@ const Checkbox = styled.input`
 `;
 export default function DetailPage() {
     const location = useLocation();
-    const { detailData, bigGoalId } = location.state || {};
-    const formattedDate = new Date(detailData.information[0].bigGoal.endDate)
-        .toISOString()
-        .split('T')[0]
-        .replace(/-/g, '.');
+    const { detailData, bigGoalId, bigGoalData} = location.state || {};
+    
+    // 이전 코드에서 이 부분을 수정합니다.
+const formattedDate = detailData && detailData.information && detailData.information[0]
+? new Date(bigGoalData.information[0].endDate).toISOString().split('T')[0].replace(/-/g, '.')
+: "";
 
-    const endDate = detailData.information[0].bigGoal.endDate;
-    const endDateTime = new Date(endDate).getTime();
+const endDate = bigGoalData?.information?.[0]?.endDate; // endDate 가져오기
+const endDateTime = endDate ? new Date(endDate).getTime() : NaN; // 유효하지 않은 경우 NaN으로 설정
 
+if (isNaN(endDateTime)) {
+    console.error("Invalid endDate:", endDate); // 잘못된 endDate 출력
+}
+
+    const [addDetail, setAddDetail] = useState("");  // 세부 목표 내용
+    const onClickSubmit = async () => {
+      try {
+        const bigGoalId = localStorage.getItem('bigGoalId');  // bigGoalId 가져오기
+        const smallGoalId = localStorage.getItem('smallGoalId');
+        const response = await axios.post(
+          `http://3.36.171.123/api/v1/small-goal/${bigGoalId}`,  // API 주소
+          {
+            content: addDetail,  // 입력된 세부 목표 내용
+            goalStatus: false,  // 목표 상태 (false)
+          },
+          {
+            headers: {
+              Authorization: `${localStorage.getItem('jwtToken')}`,  // Bearer Token 추가
+              'Content-Type': 'application/json',  // Content-Type 설정
+            },
+          }
+        );
+  
+        console.log('Post 요청 성공:', response.data);
+      } catch (error) {
+        console.error('Post 요청 실패:', error);
+      }
+    };
+  
     const [timeLeft, setTimeLeft] = useState("");
 
     useEffect(() => {
@@ -129,14 +159,15 @@ export default function DetailPage() {
         // API 호출하여 업데이트할 수 있습니다.
     };
     const isDisabled = localStorage.getItem('isDisabled');
+    console.log(detailData)
     return (
         <Wrapper>
             <CommonUI setLong={true} detailData={detailData}></CommonUI>
             <Body>
-                {detailData && detailData.information.length > 0 ? (
+                {detailData?.information && detailData.information.length > 0 ? (
                     <>
                         {/* 큰 목표 출력 */}
-                        <BigGoal>{detailData.information[0].bigGoal.content}</BigGoal>
+                        <BigGoal>{bigGoalData.information[0].content}</BigGoal>
                         <Deadline>달성일: {formattedDate}</Deadline>
                         <TimerWrapper>
                             <img src='/timer.png' />
@@ -144,7 +175,7 @@ export default function DetailPage() {
                         </TimerWrapper>
                         <DetailGoal>세부목표</DetailGoal>
                         {/* 세부 목표 리스트 출력 */}
-                        {detailData.information.map((detail, index) => (
+                        {detailData?.information.map((detail, index) => (
                             <DetailWrapper disabled={isDisabled} key={index}>
                                 <div style={{ display: "flex", gap: "10px" }}>
                                     <Checkbox
@@ -160,7 +191,7 @@ export default function DetailPage() {
                             </DetailWrapper>
                         ))}
                         <div style={{display:"flex", alignItems:"center", gap:"20px", borderBottom: "0.2px solid #474849", padding:"20px 0px 10px 0px"}}>
-                            <div style={{fontSize:"18px"}}>+</div>
+                            <div style={{fontSize:"18px"}} onClick={onClickSubmit}>+</div>
                             <AddDetail placeholder="세부목표를 입력해주세요." disabled={isDisabled}></AddDetail>
                         </div>
                     </>

@@ -49,6 +49,13 @@
     margin-top: 0px;
     /* box-sizing: border-box; */
     transition: all 0.3s ease;
+
+    font-family: Noto Sans KR;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 21.72px;
+    text-align: left;
+    color: #8E8E8E;
 }
 
 .goal-input::placeholder{
@@ -69,4 +76,3 @@
     width: 100%; /* 부모 요소의 너비를 100%로 설정 */
 
 }
-

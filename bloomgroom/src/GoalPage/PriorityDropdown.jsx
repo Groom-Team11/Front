@@ -3,15 +3,15 @@ import { CSSTransition } from "react-transition-group";
 import "./PriorityDropdown.css"; // CSS 파일도 이름에 맞게 변경
 
 // checkMenu 함수에서 view와 selectedMenu를 업데이트
-function checkMenu(props, setActiveMenu, setView, setSelectedMenu) {
+function checkMenu(props, setActiveMenu, setView, setPriority) {
   if (props.goToMenu) {
     setActiveMenu(props.goToMenu); // 메뉴 전환
     setView(false); // 드롭다운 닫기
-    setSelectedMenu(props.goToMenu); // 선택된 메뉴 값 설정
+    setPriority(props.goToMenu); // 선택된 메뉴 값 설정
   }
 }
 
-function PriorityDropdown({ view, setView, selectedMenu, setSelectedMenu }) {
+function PriorityDropdown({ view, setView, priority, setPriority }) {
   const [activeMenu, setActiveMenu] = useState("main");
   const [menuHeight, setMenuHeight] = useState();
 
@@ -27,7 +27,7 @@ function PriorityDropdown({ view, setView, selectedMenu, setSelectedMenu }) {
       <div
         className="priority-item"
         onClick={() => {
-          checkMenu(props, setActiveMenu, setView, setSelectedMenu); // checkMenu에서 상태 변경
+          checkMenu(props, setActiveMenu, setView, setPriority); // checkMenu에서 상태 변경
         }}
       >
         <span className="icon-button">{props.leftIcon}</span>

@@ -10,7 +10,7 @@ function PageRoutes() {
          <Route path="/" element={<LoginPage></LoginPage>} />
          <Route path="/main" element={<MainPage></MainPage>} />
          <Route path="/detail" element={<DetailPage></DetailPage>} />
-         <Route path="/goalpage" element={<GoalPage></GoalPage>} />
+         <Route path="/setgoal" element={<GoalPage></GoalPage>} />
          <Route path="/flower" element={<Flower></Flower>} />
       </Routes>
    );

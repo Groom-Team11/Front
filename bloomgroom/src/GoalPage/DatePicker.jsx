@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./DatePicker.css"; // CSS 파일 적용
 
-function DatePicker({ period, setPeriod, closeDatePicker }) { // closeDatePicker 추가
+function DatePicker({ period, setPeriod, closeDatePicker, startDate, setStartDate, setEndDate, endDate }) { // closeDatePicker 추가
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
 
   // 날짜 선택 후 period 업데이트 및 DatePicker 닫기
   useEffect(() => {
     if (startDate && endDate) {
       setPeriod(`${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`);
+    
       closeDatePicker(); // DatePicker 닫기
     }
   }, [startDate, endDate, setPeriod, closeDatePicker]);

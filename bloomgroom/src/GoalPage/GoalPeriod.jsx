@@ -17,13 +17,13 @@ function PeriodInput({period, setPeriod, onInputClick}){
             className="period-input"            
             readOnly
           />
-          <MdCalendarToday className="calendar-icon"/> {/* 아이콘 클릭 시 데이트 피커 열림 */}
+          <MdCalendarToday className="calendar-icon" onClick={onInputClick}/> {/* 아이콘 클릭 시 데이트 피커 열림 */}
         </div>
     )
 }
 
 // 전체 컴포넌트
-function PeriodSection({period, setPeriod}) {
+function PeriodSection({period, setPeriod, startDate, endDate, setStartDate, setEndDate}) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   const toggleDatePicker = () => {
@@ -52,6 +52,10 @@ function PeriodSection({period, setPeriod}) {
           period={period}
           setPeriod={setPeriod} // 기간을 업데이트하는 함수 전달
           closeDatePicker={closeDatePicker} // DatePicker를 닫는 함수 전달
+          setStartDate={setStartDate} 
+          setEndDate={setEndDate} 
+          startDate={startDate} 
+          endDate={endDate}
         />
       )}      
     </div>

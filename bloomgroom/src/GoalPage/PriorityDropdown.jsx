@@ -11,7 +11,7 @@ function checkMenu(props, setActiveMenu, setView, setSelectedMenu) {
   }
 }
 
-function PriorityDropdown({ view, setView, selectedMenu, setSelectedMenu }) {
+function PriorityDropdown({ view, setView, priority, setPriority }) {
   const [activeMenu, setActiveMenu] = useState("main");
   const [menuHeight, setMenuHeight] = useState();
 
@@ -27,7 +27,7 @@ function PriorityDropdown({ view, setView, selectedMenu, setSelectedMenu }) {
       <div
         className="priority-item"
         onClick={() => {
-          checkMenu(props, setActiveMenu, setView, setSelectedMenu); // checkMenu에서 상태 변경
+          checkMenu(props, setActiveMenu, setView, setPriority); // checkMenu에서 상태 변경
         }}
       >
         <span className="icon-button">{props.leftIcon}</span>

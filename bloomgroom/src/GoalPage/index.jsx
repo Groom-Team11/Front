@@ -14,13 +14,21 @@ import PeriodSection from "./GoalPeriod";
 
 
 const GoalPage = () => {
-  const [goal, setGoal] = useState(null);
+
+  //목표
+  const [content, setContent] = useState(null);
+  //우선순위
+  let [priority, setPriority] = useState('');
+  //목표 기한
   const [date, setDate] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("장기목표");
   const [view, setView] = useState(false); 
   const [period, setPeriod] = useState(""); // period 상태를 상위 컴포넌트에서 관리
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false); // DatePicker 열림 여부
-  let [selectedMenu, setSelectedMenu] = useState('');
+
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
 
   // DatePicker 열기/닫기 함수
   const toggleDatePicker = () => {
@@ -48,12 +56,12 @@ const GoalPage = () => {
 
       {/* 하얀색 배경 영역 */}
       <div className="white-background">
-        <GoalSection view={view} setView={setView} goal={goal} setGoal={setGoal} selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu}/>
-        <PeriodSection period={period} setPeriod={setPeriod}/>
-        {period && goal && selectedMenu && (
+        <GoalSection view={view} setView={setView} content={content} setContent={setContent} priority={priority} setPriority={setPriority}/>
+        <PeriodSection period={period} setPeriod={setPeriod} setStartDate={setStartDate} setEndDate={setEndDate} startDate={startDate} endDate={endDate}/>
+        {period && content && priority && (
           <button 
             className="submit-btn" 
-            onClick={() => console.log({ goal, period, selectedMenu })}
+            onClick={() => console.log({ content, period, priority, startDate, endDate })}
           >
             설정 완료
           </button>

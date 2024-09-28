@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import styled from "@emotion/styled"
+import React, { useState, useEffect } from 'react';
+import styled from "@emotion/styled";
+import flowerD from "./flowerData.json";
 
 const Wrapper = styled.div`
     display: flex;
@@ -35,13 +36,39 @@ const Body = styled.div`
     margin: 0 auto;
 `;
 
+const FlowerContainer = styled.div`
+    
+`;
+
 const FlowerCard = styled.div`
+    background-color: #fff;
+    color: white;
+    font-size: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #3A3B48;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    box-sizing: border-box; 
+    padding: 3vh 2vw 3vh 2vw;
+`;
+
+const FlowerImg = styled.img`
+    width: 100%;
+    height: 100%;
+`;
+
+
+const FlowerQuestion = styled.div`
     background-color: #3A3B48;
     color: white;
     font-size: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid #3A3B48;
     border-radius: 10px;
     cursor: pointer;
     position: relative;
@@ -60,29 +87,74 @@ const ModalOverlay = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    flex-direction: column;
 `;
 
-const ModalContent = styled.div`
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
+const ModalHeader = styled.div`
+    background-color: #3A3B48;
     max-width: 400px;
-    width: 90vw;
-    text-align: center;
+    width: 70vw;
+    height: 6vh;
+    display: flex;
+    flex-direction: row;
+`;
+
+const ModalIcon = styled.img`
+    height: 100%;
+    width: 6vh;
+`;
+
+const ModalTitle = styled.div`
+    height: 100%;
+    width: 100%;
+    color: white;
+    display: flex;
+    align-items: center;
 `;
 
 const CloseButton = styled.button`
-    margin-top: 20px;
-    padding: 10px 20px;
     border: none;
-    background-color: #555;
+    height: 100%;
+    width: 6vh;
+    background-color: #3A3B48;
+    align-items: center;
     color: white;
     cursor: pointer;
     border-radius: 5px;
 `;
 
+const ModalContent = styled.div`
+    max-width: 400px;
+    max-height: 400px;
+    height: 90vw;
+    width: 70vw;
+    background-color: white;
+    text-align: center;
+`;
+
+const ModalContentInner = styled.div`
+    margin: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+`;
+
+const ModalInnerImg = styled.img`
+    height: 40vw;
+    width: 40vw;
+    background-color: #eee;
+`;
+
+
 export default function Flower() {
-    const flowerNum = 16;
+    const flowerList = flowerD.information.flowerListRes.map(flower => ({
+        flowerId: flower.flowerId,
+        flowerImage: flower.flowerImage,
+        isAcquire: flower.isAcquire
+    }));
+    
     const [showModal, setShowModal] = useState(false);
     const [selectedFlower, setSelectedFlower] = useState(null);
 
@@ -99,25 +171,49 @@ export default function Flower() {
     return (
         <Wrapper>
             <Header>
-                <HeaderText>
-                    꽃 도감
-                </HeaderText>
+                <HeaderText>꽃 도감</HeaderText>
             </Header>
             <Body>
-                {Array.from({ length: flowerNum }).map((_, index) => (
-                    <FlowerCard key={index} onClick={() => handleCardClick(index)}>
-                        ?
-                    </FlowerCard>
+                {flowerList.map((flower, index) => (
+                    <FlowerContainer key={flower.flowerId} onClick={() => handleCardClick(index)}>
+                        {flower.isAcquire ? (
+                            <FlowerCard>
+                                <FlowerImg src={flower.flowerImage} />
+                            </FlowerCard>
+                        ) : (
+                            <FlowerQuestion>
+                                ?
+                            </FlowerQuestion>
+                        )}
+                    </FlowerContainer>
                 ))}
             </Body>
 
             <ModalOverlay show={showModal} onClick={closeModal}>
                 <ModalContent>
-                    <h2>꽃 {selectedFlower + 1}</h2>
-                    <p>{selectedFlower + 1}번 꽃입니다.</p>
-                    <CloseButton onClick={closeModal}>닫기</CloseButton>
+                    <ModalHeader>
+                        <ModalIcon />
+                        <ModalTitle>Your Bloom</ModalTitle>
+                        <CloseButton onClick={closeModal}>x</CloseButton>
+                    </ModalHeader>
+                    <ModalContentInner>
+                        <ModalInnerImg>
+                            
+                        </ModalInnerImg>
+
+                        <h2>{selectedFlower + 1}</h2>
+                        {selectedFlower !== null && (
+                            <p>
+                                {selectedFlower + 1}번 꽃입니다. 
+                                {flowerList[selectedFlower].isAcquire 
+                                    ? ' 꽃이 획득되었습니다.' 
+                                    : ' 꽃이 아직 획득되지 않았습니다.'}
+                            </p>
+                        )}
+                    </ModalContentInner>
                 </ModalContent>
             </ModalOverlay>
         </Wrapper>
     );
 }
+

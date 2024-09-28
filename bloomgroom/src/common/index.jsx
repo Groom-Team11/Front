@@ -166,7 +166,7 @@ export default function CommonUI({ setLong, detailData, flowerSrc}) {
           <Nav style={{ display: "flex", flexDirection: "column" }}>
             <Nav.Link href="/main" style={{ color: "black" }}>홈</Nav.Link>
             <Nav.Link href="/flower" style={{ color: "black" }}>꽃 도감</Nav.Link>
-            <Nav.Link href="/calendar" style={{ color: "black" }}>캘린더</Nav.Link>
+            {location.pathname !== '/main' &&(<Nav.Link href="/calendar" style={{ color: "black" }}>캘린더</Nav.Link>)}
           </Nav>
         </Modal.Body>
         <Modal.Footer style={{ justifyContent: "center" }}>

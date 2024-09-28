@@ -1,24 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import styled from "@emotion/styled";
 import flowerD from "./flowerData.json";
+import { Nav } from 'react-bootstrap'; // Import Navbar and Nav from react-bootstrap
+import { Modal } from 'react-bootstrap'; // Modal 추가
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 100vw;
     height: 100vh;
     background-color: #fff;
-    position: relative;
 `;
 
 const Header = styled.div`
-    height: 10vh;
-    min-height: 10vh;
     width: 100vw;
+    height: 4vh;
     display: flex;
     align-items: flex-end;
-    margin-bottom: 2vh;
+    margin-bottom: 4vh;
+`;
+
+const HamburgerIcon = styled.div`
+    height: 2.5vh;
+    width: 6vw;
+    margin-top: 6vw;
+    margin-left: 5vw;
+    background-image: url('/hamburger_black.png');
+    z-index: 101;
+    cursor: pointer;
+`;
+
+const MenuModal = styled(Modal)`
+  .modal-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: left;
+  }
 `;
 
 const HeaderText = styled.div`
@@ -167,6 +186,7 @@ export default function Flower() {
 
     const [showModal, setShowModal] = useState(false);
     const [selectedFlower, setSelectedFlower] = useState(null);
+    const [showMenu, setShowMenu] = useState(false);
 
     const handleCardClick = (index) => {
         setSelectedFlower(index);
@@ -180,6 +200,23 @@ export default function Flower() {
 
     return (
         <Wrapper>
+            <HamburgerIcon onClick={() => setShowMenu(true)} />
+
+            <MenuModal show={showMenu} onHide={() => setShowMenu(false)} style={{ width: "200px", height: "70vh" }}>
+            <Modal.Header closeButton>
+                <Modal.Title>MENU</Modal.Title>
+            </Modal.Header>
+            <Modal.Body style={{ height: "50vh" }}>
+                <Nav style={{ display: "flex", flexDirection: "column" }}>
+                <Nav.Link href="/main" style={{ color: "black" }}>홈</Nav.Link>
+                <Nav.Link href="/flower" style={{ color: "black" }}>꽃 도감</Nav.Link>
+                <Nav.Link href="/calendar" style={{ color: "black" }}>캘린더</Nav.Link>
+                </Nav>
+            </Modal.Body>
+            <Modal.Footer style={{ justifyContent: "center" }}>
+                <CloseButton onClick={() => setShowMenu(false)}>닫기</CloseButton>
+            </Modal.Footer>
+            </MenuModal>
             <Header>
                 <HeaderText>꽃 도감</HeaderText>
             </Header>

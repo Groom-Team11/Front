@@ -1,6 +1,7 @@
 import { KAKAO_AUTH_URL } from './OAuth.jsx';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from "@emotion/styled"
+import React, { useEffect, useState } from 'react';
 
 const Wrapper = styled.div`
   display: flex;
@@ -42,10 +43,45 @@ const TalkIcon = styled.img`
 
 export default function LoginPage() {
     const navigate = useNavigate();
+    const location = useLocation();
     
     const loginCheck = () => {
         navigate('/main');
     };
+    const fetchLogin = async () => {
+      try{
+        await fetch(`http://3.36.171.123/login?code=${localStorage.getItem('code')}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+          },
+          credentials: 'include'
+        })
+        .then(response => {
+          const jwtToken = response.headers.get('Authorization');
+          if (jwtToken) {
+            localStorage.setItem('jwtToken', jwtToken);
+            loginCheck();
+          } else {
+            console.error('JWT 토큰을 찾을 수 없습니다.');
+          }
+          return response.json();
+        })
+      }
+      catch (error) {
+        console.error('오류 발생:', error);
+      }
+    };
+    useEffect(() => {
+      if(new URLSearchParams(location.search).get('code')){
+        localStorage.setItem('code', new URLSearchParams(location.search).get('code'));
+      }
+      if(localStorage.getItem('code')){
+        fetchLogin();
+      }
+    }, [localStorage.getItem('code')]);
+
+    
 
     return (
         <Wrapper>

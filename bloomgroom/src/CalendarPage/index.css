@@ -15,6 +15,9 @@ head {
 }
 
 .blue-background {
+    display: flex;
+    flex-direction: column; /* 세로로 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
     flex: 3;
     background-color: #BBD3E8; /* 파란색 배경 */
     padding: 20px;
@@ -35,6 +38,7 @@ head {
 }
 
 .cloud-image {
+    margin-top: 25%;
     width: 200px; /* 구름 이미지 크기 조정 */
     height: auto;
 }
@@ -116,6 +120,17 @@ head {
     margin-top: 100px;
     cursor: pointer;
 }
+span.progress {
+    height: auto; /* 내부 텍스트에 맞게 높이 자동 조정 */
+    line-height: 1.5; /* 텍스트 크기에 맞는 줄 간격 설정 */
+    padding: 5px 0; /* 텍스트 위아래에 여백 추가 */
+    display: inline-block; /* 텍스트 컨테이너의 크기를 조정할 수 있도록 inline-block 설정 */
+    font-size: 32px; /* 텍스트 크기 유지 */
+    color: #FFFFFF; /* 텍스트 색상 */
+    font-family: 'Noto Sans KR'; /* 폰트 설정 */
+    background-color: transparent;
+    margin-top: 20px;
+}
 
 .submit-btn:hover {
     opacity: 0.7;
@@ -126,3 +141,12 @@ head {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 크기 감소 */
     opacity: 0.9;
   }
+
+.bottomText{
+    font-family: Noto Sans KR;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23.17px;
+    text-align: left;
+    color: #3A3B48;
+}

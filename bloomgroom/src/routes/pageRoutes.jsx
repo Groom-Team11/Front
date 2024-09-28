@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import MainPage from '../main';
 import DetailPage from '../detail';
 import Flower from '../common/flower';
+import CalendarPage from '../CalendarPage/index';
 import GoalPage from '../GoalPage/index';
 import LoginPage from '../login/index';
 function PageRoutes() {
@@ -12,6 +13,7 @@ function PageRoutes() {
          <Route path="/detail" element={<DetailPage></DetailPage>} />
          <Route path="/setgoal" element={<GoalPage></GoalPage>} />
          <Route path="/flower" element={<Flower></Flower>} />
+         <Route path="/calendar" element={<CalendarPage></CalendarPage>} />
       </Routes>
    );
 }

@@ -16,6 +16,7 @@ const Wrapper = styled.div`
 const Header = styled.div`
     width: 100vw;
     height: 4vh;
+    min-height: 4vh;
     display: flex;
     align-items: flex-end;
     margin-bottom: 4vh;
@@ -26,6 +27,8 @@ const HamburgerIcon = styled.div`
     width: 6vw;
     margin-top: 6vw;
     margin-left: 5vw;
+    margin-bottom: 1vw;
+    min-height: 2.5vh;
     background-image: url('/hamburger_black.png');
     z-index: 101;
     cursor: pointer;
@@ -57,6 +60,25 @@ const Body = styled.div`
 
 const FlowerContainer = styled.div`
     
+`;
+
+const FlowerCard = styled.div`
+    background-color: #eee;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.65vw solid #3A3B48;
+    opacity: 0.5;
+    border-radius: 5vw;
+    cursor: pointer;
+    color: #555;
+    font-weight: bold;
+    font-size: 5vw;
+    position: relative;
+    box-sizing: border-box; 
+    padding: 3vh 2vw 3vh 2vw;
 `;
 
 const FlowerImg = styled.img`
@@ -167,10 +189,12 @@ const FlowerName = styled.div`
     height: 4vh;
     font-size: 2.8vh;
     font-weight: bold;
+    margin-top: 2vh;
 `;
 
 const FlowerMean = styled.div`
     font-size: 2vh;
+    margin-top: 1vh;
 `;
 
 export default function Flower() {
@@ -187,10 +211,14 @@ export default function Flower() {
     const [showModal, setShowModal] = useState(false);
     const [selectedFlower, setSelectedFlower] = useState(null);
     const [showMenu, setShowMenu] = useState(false);
-
+    
     const handleCardClick = (index) => {
-        setSelectedFlower(index);
-        setShowModal(true);
+        const selectedFlower = flowerList[index];
+    
+        if (selectedFlower.isAcquired) {
+            setSelectedFlower(index);
+            setShowModal(true);
+        }
     };
 
     const closeModal = () => {
@@ -230,6 +258,9 @@ export default function Flower() {
                         )}
                     </FlowerContainer>
                 ))}
+                <FlowerContainer>
+                    <FlowerCard>SOON</FlowerCard>
+                </FlowerContainer>
             </Body>
 
             <ModalOverlay show={showModal} onClick={closeModal}>
@@ -247,9 +278,7 @@ export default function Flower() {
                         {selectedFlower !== null && selectedFlower >= 0 && selectedFlower < flowerList.length && flowerList[selectedFlower].isAcquired ? (
                             <ModalInnerImg src={flowerList[selectedFlower].cardColor} alt={flowerList[selectedFlower].flowerName} />
                         ) : (
-                            
-                                '?'
-                            
+                            ''
                         )}
 
                         {selectedFlower !== null && selectedFlower >= 0 && selectedFlower < flowerList.length && (

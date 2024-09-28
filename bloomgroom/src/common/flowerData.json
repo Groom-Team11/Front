@@ -1,0 +1,67 @@
+{
+    "check": true,
+    "information": {
+        "flowerListRes": [
+            {
+                "flowerId": 1,
+                "flowerImage": "{이미지url}",
+                "isAcquire": true
+            },
+            {
+                "flowerId": 2,
+                "flowerImage": "{이미지url}",
+                "isAcquire": true
+            },
+            {
+                "flowerId": 3,
+                "flowerImage": "{이미지url}",
+                "isAcquire": true
+            },
+            {
+                "flowerId": 4,
+                "flowerImage": "{이미지url}",
+                "isAcquire": true
+            },
+            {
+                "flowerId": 5,
+                "flowerImage": "{이미지url}",
+                "isAcquire": false
+            },
+            {
+                "flowerId": 6,
+                "flowerImage": "{이미지url}",
+                "isAcquire": false
+            },
+            {
+                "flowerId": 7,
+                "flowerImage": "{이미지url}",
+                "isAcquire": false
+            },
+            {
+                "flowerId": 8,
+                "flowerImage": "{이미지url}",
+                "isAcquire": true
+            },
+            {
+                "flowerId": 9,
+                "flowerImage": "{이미지url}",
+                "isAcquire": false
+            },
+            {
+                "flowerId": 10,
+                "flowerImage": "{이미지url}",
+                "isAcquire": false
+            },
+            {
+                "flowerId": 11,
+                "flowerImage": "{이미지url}",
+                "isAcquire": false
+            },
+            {
+                "flowerId": 12,
+                "flowerImage": "{이미지url}",
+                "isAcquire": true
+            }
+        ]
+    }
+}

@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Navbar, Nav } from 'react-bootstrap'; // Import Navbar and Nav from react-bootstrap
+import { Nav } from 'react-bootstrap'; // Import Navbar and Nav from react-bootstrap
 import { Modal } from 'react-bootstrap'; // Modal 추가
-
+import axios from "axios"
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -113,91 +113,114 @@ const RainAnimation = styled.div`
     height: ${() => 40 + Math.random() * 30}px; /* 비 방울의 길이 다양화 */
   }
 `;
-export default function CommonUI({ setLong, detailData }) {
-    const [completedCount, setCompletedCount] = useState(0);
-    const [cloudImage, setCloudImage] = useState('/cloud/cloud1.png'); // 처음 0/8 구름
-    const [showMenu, setShowMenu] = useState(false); // 메뉴 모달 상태
-    const location = useLocation(); // 현재 경로 확인
+export default function CommonUI({ setLong, detailData, flowerSrc}) {
+  const [completedCount, setCompletedCount] = useState(0);
+  const [cloudImage, setCloudImage] = useState('/cloud/cloud1.png'); // 처음 0/8 구름
+  const [showMenu, setShowMenu] = useState(false); // 메뉴 모달 상태
+  const [confirm, setConfirm] = useState(true);
+  const location = useLocation(); // 현재 경로 확인
+  const [isDisabled, setIsDisabled] = useState(false); // 할일 생성/수정 비활성화 상태
+  const handleConfirm = () => {
+    setIsDisabled(true); // 확인 버튼 클릭 시 생성/수정 비활성화
+    setConfirm(false); // 모달 닫기
+  };
 
-    useEffect(() => {
-        if (location.pathname === '/main') {
-            setCloudImage('/cloud/cloud8.png'); // 모든 목표 완료된 이미지
-        } else if (detailData && detailData.information.length > 0) {
-            const total = detailData.information.length;
-            const completed = detailData.information.filter(detail => detail.goalStatus).length;
-            setCompletedCount(completed / total * 100);
-            const completionRatio = completed / total;
-            const stage = Math.round(completionRatio * 8); // 0에서 8까지 단계로 나눔
+  useEffect(() => {
+    if (location.pathname === '/main') {
+      setCloudImage('/cloud/cloud8.png'); // 모든 목표 완료된 이미지
+    } else if (detailData && detailData.information.length > 0) {
+      const total = detailData.information.length;
+      const completed = detailData.information.filter(detail => detail.goalStatus).length;
+      setCompletedCount(completed / total * 100);
+      const completionRatio = completed / total;
+      const stage = Math.round(completionRatio * 8); // 0에서 8까지 단계로 나눔
 
-            if (stage === 8) {
-                setCloudImage(`/cloud/cloud8.png`);
-            } else {
-                setCloudImage(`/cloud/cloud${stage + 1}.png`);
-            }
-        }
-    }, [location.pathname, detailData]);
+      if (stage === 8) {
+        setCloudImage(`/cloud/cloud8.png`);
+      } else {
+        setCloudImage(`/cloud/cloud${stage + 1}.png`);
+      }
+    }
+  }, [location.pathname, detailData]);
+  localStorage.setItem('isDisabled', isDisabled);
+  const onClickConfirm = async () => {
+    setConfirm(false);
+    handleConfirm();
+    try {
+      const response = await axios.post(`http://3.36.171.123/api/v1/steam/${localStorage.getItem('bigGoalId')}`);
+    } catch (error) {
+      console.error("수증기 생성 오류가 발생했습니다.", error);
+    }
+    setCloudImage(flowerSrc);
+  }
+  return (
+    <Wrapper>
+      {/* 햄버거 아이콘 */}
+      <HamburgerIcon onClick={() => setShowMenu(true)} />
 
-    return (
-        <Wrapper>
-            {/* 햄버거 아이콘 */}
-            <HamburgerIcon onClick={() => setShowMenu(true)} />
+      <MenuModal show={showMenu} onHide={() => setShowMenu(false)} style={{ width: "200px", height: "70vh" }}>
+        <Modal.Header closeButton>
+          <Modal.Title>MENU</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ height: "50vh" }}>
+          <Nav style={{ display: "flex", flexDirection: "column" }}>
+            <Nav.Link href="/main" style={{ color: "black" }}>홈</Nav.Link>
+            <Nav.Link href="/flower" style={{ color: "black" }}>꽃 도감</Nav.Link>
+            <Nav.Link href="/calendar" style={{ color: "black" }}>캘린더</Nav.Link>
+          </Nav>
+        </Modal.Body>
+        <Modal.Footer style={{ justifyContent: "center" }}>
+          <CloseButton onClick={() => setShowMenu(false)}>닫기</CloseButton>
+        </Modal.Footer>
+      </MenuModal>
 
-            <MenuModal show={showMenu} onHide={() => setShowMenu(false)} style={{width:"200px", height:"70vh"}}>
-                <Modal.Header closeButton>
-                    <Modal.Title>MENU</Modal.Title>
-                </Modal.Header>
-                <Modal.Body style={{height:"50vh"}}>
-                    <Nav style={{ display: "flex", flexDirection: "column" }}>
-                        <Nav.Link href="/main" style={{ color: "black" }}>홈</Nav.Link>
-                        <Nav.Link href="/flower" style={{ color: "black" }}>꽃 도감</Nav.Link>
-                        <Nav.Link href="/calendar" style={{ color: "black" }}>캘린더</Nav.Link>
-                    </Nav>
-                </Modal.Body>
+      <Background setLong={setLong}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
+          <CloudImage src={cloudImage} alt="Progress Cloud" />
+          {location.pathname === "/detail" && (
+            <div style={{ textAlign: "center", fontSize: "32px", color: "white", fontWeight: "500" }}>
+              {completedCount}%
+            </div>
+          )}
+
+          {/* completedCount가 100일 때 비 애니메이션 렌더링 */}
+          {completedCount === 100 && (
+            <>                        <>                        <RainAnimation>
+              {Array.from({ length: 100 }, (_, i) => (
+                <div key={i} className="drop" />
+
+              ))}
+              {/* 비오는 애니메이션 */}
+            </RainAnimation>
+              <RainAnimation>
+                {Array.from({ length: 100 }, (_, i) => (
+                  <div key={i} className="drop" />
+                ))}
+              </RainAnimation>
+              <RainAnimation>
+                {Array.from({ length: 100 }, (_, i) => (
+                  <div key={i} className="drop" />
+                ))}
+              </RainAnimation>
+              <RainAnimation>
+                {Array.from({ length: 100 }, (_, i) => (
+                  <div key={i} className="drop" />
+
+                ))}
+              </RainAnimation>
+            </>
+              <MenuModal show={confirm} onHide={() => setConfirm(false)} style={{ width: "100vw", height: "50vh" }}>
+                <Modal.Title style={{ fontSize: "18px" }}>오늘의 수증기를 획득할까요?<br></br>(수증기를 획득하고 나면 더이상 오늘의 목표를 등록할 수 없어요.)<br /> </Modal.Title>
                 <Modal.Footer style={{ justifyContent: "center" }}>
-                    <CloseButton onClick={() => setShowMenu(false)}>닫기</CloseButton>
+                  <CloseButton style={{ width: "200px" }} onClick={onClickConfirm}>획득할래요</CloseButton>
+                  <CloseButton style={{ width: "200px" }} onClick={() => setConfirm(false)}>나중에 획득할래요</CloseButton>
                 </Modal.Footer>
-            </MenuModal>
+              </MenuModal>
+            </>
 
-            <Background setLong={setLong}>
-                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
-                    <CloudImage src={cloudImage} alt="Progress Cloud" />
-                    {location.pathname === "/detail" && (
-                        <div style={{ textAlign: "center", fontSize: "32px", color: "white", fontWeight: "500" }}>
-                            {completedCount}%
-                        </div>
-                    )}
-
-                    {/* completedCount가 100일 때 비 애니메이션 렌더링 */}
-                    {completedCount === 100 && (
-                        <>                        <RainAnimation>
-                            {Array.from({ length: 100 }, (_, i) => (
-                                <div key={i} className="drop" />
-
-                            ))}
-                        {/* 비오는 애니메이션 */}
-                        </RainAnimation>
-                        <RainAnimation>
-                        {Array.from({ length: 100 }, (_, i) => (
-                            <div key={i} className="drop" />
-
-                        ))}
-                    </RainAnimation>
-                    <RainAnimation>
-                        {Array.from({ length: 100 }, (_, i) => (
-                            <div key={i} className="drop" />
-
-                        ))}
-                    </RainAnimation>
-                    <RainAnimation>
-                        {Array.from({ length: 100 }, (_, i) => (
-                            <div key={i} className="drop" />
-
-                        ))}
-                    </RainAnimation>
-                    </>
-                    )}
-                </div>
-            </Background>
-        </Wrapper>
-    );
+          )}
+        </div>
+      </Background>
+    </Wrapper>
+  );
 }

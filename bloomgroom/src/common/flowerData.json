@@ -1,0 +1,77 @@
+{
+    "check": true,
+    "information": {
+        "flowerList": [
+            {
+                "flowerId": 1,
+                "flowerName": "CARNATION",
+                "flowerImage": "https://bloomgroom-bucket.s3.ap-northeast-2.amazonaws.com/flower_image/carnation.png",
+                "flowerMean": "어머니의 사랑처럼 당신의 노력도 값진 결실을 맺을 거예요.",
+                "isAcquired": true
+            },
+            {
+                "flowerId": 2,
+                "flowerName": "VIOLA",
+                "flowerImage": "https://bloomgroom-bucket.s3.ap-northeast-2.amazonaws.com/flower_image/viola.png",
+                "flowerMean": "성실한 당신의 노력이 작은 꽃처럼 아름다운 결과를 가져올 거예요.",
+                "isAcquired": true
+            },
+            {
+                "flowerId": 3,
+                "flowerName": "SUNFLOWER",
+                "flowerImage": "https://bloomgroom-bucket.s3.ap-northeast-2.amazonaws.com/flower_image/sunflower.png",
+                "flowerMean": "해바라기처럼 늘 밝은 방향을 향해 노력하는 당신을 응원해요.",
+                "isAcquired": true
+            },
+            {
+                "flowerId": 4,
+                "flowerName": "ROSE",
+                "flowerImage": "https://bloomgroom-bucket.s3.ap-northeast-2.amazonaws.com/flower_image/rosesmall.png",
+                "flowerMean": "당신의 사랑과 열정이 모든 노력에 꽃을 피우게 할 거예요.",
+                "isAcquired": true
+            },
+            {
+                "flowerId": 5,
+                "flowerName": "LOTUS FLOWER",
+                "flowerImage": "https://bloomgroom-bucket.s3.ap-northeast-2.amazonaws.com/flower_image/lotusflower.png",
+                "flowerMean": "진흙 속에서도 피어나는 연꽃처럼, 당신의 노력은 어려움을 이겨내고 큰 성과를 이룰 거예요.",
+                "isAcquired": true
+            },
+            {
+                "flowerId": 6,
+                "flowerName": "DANDELION",
+                "flowerImage": "https://bloomgroom-bucket.s3.ap-northeast-2.amazonaws.com/flower_image/dandelion.png",
+                "flowerMean": "민들레처럼 작은 노력이라도 꾸준히 한다면 행복한 미래를 만들 수 있을 거예요.",
+                "isAcquired": true
+            },
+            {
+                "flowerId": 7,
+                "flowerName": "COSMOS",
+                "flowerImage": "https://bloomgroom-bucket.s3.ap-northeast-2.amazonaws.com/flower_image/cosmos.png",
+                "flowerMean": "조화롭게 이루어진 노력은 결국 당신에게 평온과 사랑을 안겨줄 거예요.",
+                "isAcquired": true
+            },
+            {
+                "flowerId": 8,
+                "flowerName": "CHERRY BLOSSOM",
+                "flowerImage": "https://bloomgroom-bucket.s3.ap-northeast-2.amazonaws.com/flower_image/cherryblossom.png",
+                "flowerMean": "짧은 순간에도 최선을 다하는 당신의 노력이 찬란하게 빛날 거예요.",
+                "isAcquired": true
+            },
+            {
+                "flowerId": 9,
+                "flowerName": "BELL FLOWER",
+                "flowerImage": "https://bloomgroom-bucket.s3.ap-northeast-2.amazonaws.com/flower_image/bellflower.png",
+                "flowerMean": "변치 않는 사랑과 같은 당신의 끈기 있는 노력이 반드시 빛을 발할 거예요.",
+                "isAcquired": false
+            },
+            {
+                "flowerId": 10,
+                "flowerName": "AZALEA",
+                "flowerImage": "https://bloomgroom-bucket.s3.ap-northeast-2.amazonaws.com/flower_image/azalea.png",
+                "flowerMean": "당신의 절개와 노력은 봄의 따뜻한 꽃처럼 피어날 거예요.",
+                "isAcquired": false
+            }
+        ]
+    }
+}

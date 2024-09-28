@@ -1,0 +1,152 @@
+.goal-page-container {
+    width: 100%;
+    height: 40%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+head {
+    margin: 0;
+    padding: 0;
+}
+
+.blue-background {
+    display: flex;
+    flex-direction: column; /* 세로로 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+    flex: 3;
+    background-color: #BBD3E8; /* 파란색 배경 */
+    padding: 20px;
+    border-bottom-left-radius: 20px; /* 둥근 테두리 적용 */
+    border-bottom-right-radius: 20px;
+}
+    
+.white-background {
+    flex: 5;
+    background-color: white; /* 하얀색 배경 */
+    padding: 15px 5px !important;
+    border-top-left-radius: 20px; /* 둥근 테두리 적용 */
+    border-top-right-radius: 20px;
+}
+
+.goal-page-header {
+    padding: 20px 0;
+}
+
+.cloud-image {
+    margin-top: 25%;
+    width: 200px; /* 구름 이미지 크기 조정 */
+    height: auto;
+}
+
+.goal-section {
+    margin: 20px 0;
+    position: relative;
+}
+
+.goal-input {
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.date-section {
+    margin-top: 20px;
+}
+
+.date-picker {
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    width: 80%;
+    max-width: 300px;
+}
+
+  /* 드롭다운 스타일 */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown-content p:hover {
+    background-color: #f1f1f1;
+}
+
+.submit-btn {
+    border-radius: 40px;
+    width: 106px;
+    border: 1px solid #A7A9B2;
+    background: #727b81;
+    color: white;
+    height: 50px;
+    margin-top: 100px;
+    cursor: pointer;
+}
+span.progress {
+    height: auto; /* 내부 텍스트에 맞게 높이 자동 조정 */
+    line-height: 1.5; /* 텍스트 크기에 맞는 줄 간격 설정 */
+    padding: 5px 0; /* 텍스트 위아래에 여백 추가 */
+    display: inline-block; /* 텍스트 컨테이너의 크기를 조정할 수 있도록 inline-block 설정 */
+    font-size: 32px; /* 텍스트 크기 유지 */
+    color: #FFFFFF; /* 텍스트 색상 */
+    font-family: 'Noto Sans KR'; /* 폰트 설정 */
+    background-color: transparent;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    opacity: 0.7;
+  }
+  
+  .submit-btn:active {
+    transform: scale(0.95); /* 살짝 눌리는 효과 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 크기 감소 */
+    opacity: 0.9;
+  }
+
+.bottomText{
+    font-family: Noto Sans KR;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23.17px;
+    text-align: left;
+    color: #3A3B48;
+}

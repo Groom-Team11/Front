@@ -7,6 +7,7 @@ import PageRoutes from './routes/pageRoutes.jsx';
 
 function App() {
   return (
+
     <Router>
       <StartRoutes />
       <PageRoutes />

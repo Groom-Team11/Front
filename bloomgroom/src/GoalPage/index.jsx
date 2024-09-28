@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import cloudImg from './img/cloud1.png';
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import "./index.css";
 import GoalSection from "./GoalHeader";
@@ -31,6 +32,7 @@ const GoalPage = () => {
   const [endDate, setEndDate] = useState(null);
   const [token, setToken] = useState(null);
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
   const handlePostRequest = async () => {
 
@@ -50,6 +52,7 @@ const GoalPage = () => {
       });
       setData(response.data);
       console.log('데이터 전송 성공:', response.data);
+      navigate('/main');
     } catch (error) {
       console.error('POST 요청 에러:', error.response?.data || error.message);
     }

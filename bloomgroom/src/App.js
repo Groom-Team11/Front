@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import StartRoutes from './routes/startRoutes';
 import PageRoutes from './routes/pageRoutes';
 import GoalPage from './GoalPage';
+import CalendarPage from './CalendarPage';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
     //   <StartRoutes />
     //   <PageRoutes />
     // </Router>
-    <GoalPage/>
+    <CalendarPage/>
 
   );
 }

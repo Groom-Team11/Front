@@ -25,14 +25,28 @@ function PeriodInput({period, setPeriod, onInputClick}){
 // 전체 컴포넌트
 function PeriodSection({period, setPeriod, startDate, endDate, setStartDate, setEndDate}) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
 
   const toggleDatePicker = () => {
-    setIsDatePickerOpen(!isDatePickerOpen); // 열고 닫기 상태 토글
+    if (isDatePickerOpen) {
+      // DatePicker 닫기 애니메이션 시작
+      setClosing(true);
+      setTimeout(() => {
+        setIsDatePickerOpen(false);
+        setClosing(false);
+      }, 400); // 트랜지션 시간 (0.3초)과 일치
+    } else {
+      setIsDatePickerOpen(true);
+    }
   };
 
   // DatePicker를 닫는 함수
   const closeDatePicker = () => {
-    setIsDatePickerOpen(false); // DatePicker 닫기
+    setClosing(true);
+    setTimeout(() => {
+      setIsDatePickerOpen(false);
+      setClosing(false);
+    }, 400); // 트랜지션 시간과 일치
   };
 
 

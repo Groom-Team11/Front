@@ -11,6 +11,8 @@ import "./index.css";
 import GoalSection from "./GoalHeader";
 import PeriodSection from "./GoalPeriod";
 
+import axios from "axios";
+
 
 
 const GoalPage = () => {
@@ -28,6 +30,30 @@ const GoalPage = () => {
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [token, setToken] = useState(null);
+  const [data, setData] = useState(null);
+
+  const handlePostRequest = async () => {
+
+    const postData = {
+      startDate: startDate,
+      endDate: endDate,
+      priority: priority,
+      content: content
+    };
+    console.log(postData);
+    
+    axios.post('https://api/v1/big-goal', postData, {
+      headers: {
+        'Authorization': `Bearer ${token}` // JWT 토큰을 헤더에 포함 (토큰 인증)
+      }
+    }).then(response => {
+      setData(response.data);
+    })
+    .catch(error => {
+      console.error('GET 요청 에러:', error);
+    });
+  }
 
 
   // DatePicker 열기/닫기 함수
@@ -48,7 +74,6 @@ const GoalPage = () => {
           <img 
             src={cloudImg}
             alt="Cloud"
-            style={{paddingTop: "50px", paddingBottom: "70px"}}
             className="cloud-image"
           />
         </header>
@@ -61,7 +86,10 @@ const GoalPage = () => {
         {period && content && priority && (
           <button 
             className="submit-btn" 
-            onClick={() => console.log({ content, period, priority, startDate, endDate })}
+            onClick={() => {
+              console.log({ content, period, priority, startDate, endDate })
+              handlePostRequest();
+          }}
           >
             설정 완료
           </button>

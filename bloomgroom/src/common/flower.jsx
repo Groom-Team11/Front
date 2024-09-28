@@ -198,20 +198,11 @@ const FlowerMean = styled.div`
 `;
 
 export default function Flower() {
-    const flowerList = flowerD.information.flowerList.map(flower => ({
-        flowerId: flower.flowerId,
-        flowerName: flower.flowerName,
-        flowerImage: flower.flowerImage,
-        flowerMean: flower.flowerMean,
-        isAcquired: flower.isAcquired,
-        cardBlur: `/flowerCard_blur/${flower.flowerName}.png`,
-        cardColor: `/flowerCard_color/${flower.flowerName}.png`
-    }));
-
+    const [flowerList, setFlowerList] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedFlower, setSelectedFlower] = useState(null);
     const [showMenu, setShowMenu] = useState(false);
-    
+
     const handleCardClick = (index) => {
         const selectedFlower = flowerList[index];
     
@@ -226,6 +217,43 @@ export default function Flower() {
         setSelectedFlower(null);
     };
 
+    async function fetchFlowerList() {
+        try {
+            const response = await fetch('http://3.36.171.123/api/v1/flower/list', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('jwtToken')
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch flower list');
+            }
+            
+            const fetchedData = await response.json();
+        
+            const formattedFlowerList = fetchedData.information.flowerList.map(flower => ({
+                flowerId: flower.flowerId,
+                flowerName: flower.flowerName,
+                flowerImage: flower.flowerImage,
+                flowerMean: flower.flowerMean,
+                isAcquired: flower.isAcquired,
+                cardBlur: `/flowerCard_blur/${flower.flowerName}.png`,
+                cardColor: `/flowerCard_color/${flower.flowerName}.png`
+            }));
+            setFlowerList(formattedFlowerList);
+            return flowerList;
+        } catch (error) {
+            console.error('Error:', error);
+            return null;
+        }
+    }
+      
+    useEffect(() => {
+        fetchFlowerList();
+    }, []);
+    
     return (
         <Wrapper>
             <HamburgerIcon onClick={() => setShowMenu(true)} />

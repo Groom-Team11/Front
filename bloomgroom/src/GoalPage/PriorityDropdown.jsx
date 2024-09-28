@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { CSSTransition } from "react-transition-group";
 import "./PriorityDropdown.css"; // CSS 파일도 이름에 맞게 변경
 

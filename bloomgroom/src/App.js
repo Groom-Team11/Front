@@ -9,11 +9,10 @@ import GoalPage from './GoalPage';
 
 function App() {
   return (
-    // <Router>
-    //   <StartRoutes />
-    //   <PageRoutes />
-    // </Router>
-    <GoalPage/>
+    <Router>
+      <StartRoutes />
+      <PageRoutes />
+    </Router>
 
   );
 }

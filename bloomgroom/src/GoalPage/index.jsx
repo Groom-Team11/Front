@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import PriorityDropdown from "./PriorityDropdown";
 import "react-datepicker/dist/react-datepicker.css";
@@ -33,28 +33,24 @@ const GoalPage = () => {
   const [data, setData] = useState(null);
 
   const handlePostRequest = async () => {
-
-    const token = localStorage.getItem('jwtToken'); // 여기서 바로 토큰을 가져옵니다.
-
-    const postData = {
-      startDate: startDate,
-      endDate: endDate,
-      priority: priority,
-      content: content,
-    };
-
-    console.log(postData);
-  
     try {
-      const response = await axios.post('https://api/v1/big-goal', postData, {
+      const postData = {
+        startDate: startDate,
+        endDate: endDate,
+        priority: priority,
+        content: content,
+      };
+
+      const response = await axios.post('http://3.36.171.123/api/v1/big-goal', postData, {
         headers: {
-          Authorization: `Bearer ${token}`, // 토큰을 여기서 사용
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('jwtToken')
         },
       });
       setData(response.data);
       console.log('데이터 전송 성공:', response.data);
     } catch (error) {
-      console.error('POST 요청 에러:', error);
+      console.error('POST 요청 에러:', error.response?.data || error.message);
     }
   };
 

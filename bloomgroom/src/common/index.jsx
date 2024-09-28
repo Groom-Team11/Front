@@ -188,7 +188,6 @@ export default function CommonUI({ setLong, detailData, flowerSrc}) {
             <>                        <>                        <RainAnimation>
               {Array.from({ length: 100 }, (_, i) => (
                 <div key={i} className="drop" />
-
               ))}
               {/* 비오는 애니메이션 */}
             </RainAnimation>

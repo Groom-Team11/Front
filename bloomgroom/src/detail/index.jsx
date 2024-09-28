@@ -190,13 +190,12 @@ if (isNaN(endDateTime)) {
                                 <div style={{ fontSize: "24px", fontWeight: "800", color: "#8E8E8E" }}>-</div>
                             </DetailWrapper>
                         ))}
-                        <div style={{display:"flex", alignItems:"center", gap:"20px", borderBottom: "0.2px solid #474849", padding:"20px 0px 10px 0px"}}>
-                            <div style={{fontSize:"18px"}} onClick={onClickSubmit}>+</div>
-                            <AddDetail placeholder="세부목표를 입력해주세요." disabled={isDisabled}></AddDetail>
-                        </div>
                     </>
                 ) : (
-                    <p>세부 목표 데이터를 찾을 수 없습니다.</p>
+                    <div style={{display:"flex", alignItems:"center", gap:"20px", borderBottom: "0.2px solid #474849", padding:"20px 0px 10px 0px"}}>
+                    <div style={{fontSize:"18px"}} onClick={onClickSubmit}>+</div>
+                    <AddDetail placeholder="세부목표를 입력해주세요."></AddDetail>
+                </div>
                 )}
             </Body>
         </Wrapper>

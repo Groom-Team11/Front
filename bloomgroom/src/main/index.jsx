@@ -304,7 +304,7 @@ export default function MainPage() {
                         return (
                             <div key={index} style={{ display: "flex", width: "100%", alignItems: "center", marginBottom: "10px" }}>
                                 <ListContainer>
-                                    <ItemName onClick={() => handleNavigate(index + 1)}>{item?.content}</ItemName>
+                                    <ItemName onClick={() => handleNavigate(item.bigGoalId)}>{item?.content}</ItemName>
                                     <Group>
                                         <ItemDate>달성일: {formattedEndDate(item?.endDate)}</ItemDate>
                                         <div style={{ gap: "5px" }}>

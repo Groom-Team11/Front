@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./DatePicker.css"; // CSS 파일 적용
 
+
 function DatePicker({ period, setPeriod, closeDatePicker, setStartDate, setEndDate}) { // closeDatePicker 추가
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
@@ -33,6 +34,7 @@ function DatePicker({ period, setPeriod, closeDatePicker, setStartDate, setEndDa
   const handleDateClick = (day) => {
     const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
 
+
     if (!tempSDate || (tempSDate && tempEDate)) {
       setTempSDate(clickedDate); // 시작 날짜 설정
       setTempEDate(null); // 종료 날짜 초기화
@@ -41,12 +43,14 @@ function DatePicker({ period, setPeriod, closeDatePicker, setStartDate, setEndDa
     } else {
       setTempSDate(clickedDate); // 종료 날짜가 시작 날짜보다 이전일 경우 다시 시작 날짜 설정
       setTempEDate(null);
+
     }
   };
 
   // 날짜가 선택된 범위 내에 있는지 확인하는 함수
   const isInRange = (day) => {
     const selectedDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+
     return tempSDate && tempEDate && selectedDay >= tempSDate && selectedDay <= tempEDate;
   };
 
@@ -71,6 +75,7 @@ function DatePicker({ period, setPeriod, closeDatePicker, setStartDate, setEndDa
     // 현재 월의 일자 렌더링
     for (let day = 1; day <= daysInMonth; day++) {
       const isToday = today.getDate() === day && today.getMonth() === currentDate.getMonth() && today.getFullYear() === currentDate.getFullYear();
+
       const isSelected = tempSDate && tempEDate && isInRange(day);
       const isStart = tempSDate && tempSDate.getDate() === day && tempSDate.getMonth() === currentDate.getMonth();
       const isEnd = tempEDate && tempEDate.getDate() === day && tempEDate.getMonth() === currentDate.getMonth();

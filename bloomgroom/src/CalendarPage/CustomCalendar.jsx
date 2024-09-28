@@ -52,7 +52,7 @@ function CustomCalendar({ startDate, endDate, eventDates }) {
   
       // 이벤트 날짜에 물방울 아이콘 추가
       if (eventDates.some(eventDate => eventDate.toDateString() === date.toDateString())) {
-        return <img src={waterDrop} alt="Water Drop" className="icon" />;
+        return <span ><img src={waterDrop} alt="Water Drop" className="icon" /></span>;
       }
     }
     

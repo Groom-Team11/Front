@@ -8,6 +8,7 @@
 }
 
 .period-input {
+
   width: 100%; /* 컨테이너 너비에 맞게 자동 조정 */
   padding: 8px 35px 8px 12px; /* 아이콘이 들어갈 자리 확보 (오른쪽 35px) */
   border: 1px solid #A7A9B2;
@@ -24,6 +25,7 @@
   line-height: 21px;
   text-align: left;
   color: #BDC0CC;
+
 }
 
 .period-title {
@@ -69,6 +71,7 @@ box-shadow: 0 0 0 3.2px rgba(32, 162, 232, 0.25);
 }
 
 /* 달력 아이콘을 input 내부에 배치 */
+
 .calendar-icon {
   position: absolute;
   right: 10px; /* input 상자의 오른쪽 안쪽에 위치 */
@@ -79,6 +82,7 @@ box-shadow: 0 0 0 3.2px rgba(32, 162, 232, 0.25);
 }
 
 .date-picker {
+
 opacity: 1;
 position: absolute; /* period-section을 기준으로 위치 */
 top: -120%; /* period-section 위에 위치 */
@@ -96,6 +100,7 @@ font-family: Arial, sans-serif;
 border: none;
 
 transition: opacity 0.4s ease, max-height 0.4s ease;
+
 
 }
 

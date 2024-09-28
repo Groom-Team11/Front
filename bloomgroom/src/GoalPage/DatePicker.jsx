@@ -4,15 +4,19 @@ import "./DatePicker.css"; // CSS 파일 적용
 function DatePicker({ period, setPeriod, closeDatePicker, startDate, setStartDate, setEndDate, endDate }) { // closeDatePicker 추가
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
+  const [tempStart, setTempStart] = useState();
+  const [tempEnd, setTempEnd] = useState();
 
   // 날짜 선택 후 period 업데이트 및 DatePicker 닫기
   useEffect(() => {
-    if (startDate && endDate) {
-      setPeriod(`${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`);
+    if (tempStart && tempEnd) {
+      setPeriod(`${tempStart.toLocaleDateString()} - ${tempEnd.toLocaleDateString()}`);
+      setStartDate(tempStart);
+      setEndDate(tempEnd);
     
       closeDatePicker(); // DatePicker 닫기
     }
-  }, [startDate, endDate, setPeriod, closeDatePicker]);
+  }, [tempStart, tempEnd, closeDatePicker]);
 
   // 이전 달로 이동
   const goToPreviousMonth = () => {
@@ -28,21 +32,21 @@ function DatePicker({ period, setPeriod, closeDatePicker, startDate, setStartDat
   const handleDateClick = (day) => {
     const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
 
-    if (!startDate || (startDate && endDate)) {
-      setStartDate(clickedDate); // 시작 날짜 설정
-      setEndDate(null); // 종료 날짜 초기화
-    } else if (clickedDate >= startDate) {
-      setEndDate(clickedDate); // 종료 날짜 설정
+    if (!tempStart || (tempStart && tempEnd)) {
+      setTempStart(clickedDate); // 시작 날짜 설정
+      setTempEnd(null); // 종료 날짜 초기화
+    } else if (clickedDate >= tempStart) {
+      setTempEnd(clickedDate); // 종료 날짜 설정
     } else {
-      setStartDate(clickedDate); // 종료 날짜가 시작 날짜보다 이전일 경우 다시 시작 날짜 설정
-      setEndDate(null);
+      setTempStart(clickedDate); // 종료 날짜가 시작 날짜보다 이전일 경우 다시 시작 날짜 설정
+      setTempEnd(null);
     }
   };
 
   // 날짜가 선택된 범위 내에 있는지 확인하는 함수
   const isInRange = (day) => {
     const selectedDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-    return startDate && endDate && selectedDay >= startDate && selectedDay <= endDate;
+    return tempStart && tempEnd && selectedDay >= tempStart && selectedDay <= tempEnd;
   };
 
   // 달력 렌더링
@@ -66,9 +70,9 @@ function DatePicker({ period, setPeriod, closeDatePicker, startDate, setStartDat
     // 현재 월의 일자 렌더링
     for (let day = 1; day <= daysInMonth; day++) {
       const isToday = today.getDate() === day && today.getMonth() === currentDate.getMonth() && today.getFullYear() === currentDate.getFullYear();
-      const isSelected = startDate && endDate && isInRange(day);
-      const isStart = startDate && startDate.getDate() === day && startDate.getMonth() === currentDate.getMonth();
-      const isEnd = endDate && endDate.getDate() === day && endDate.getMonth() === currentDate.getMonth();
+      const isSelected = tempStart && tempEnd && isInRange(day);
+      const isStart = tempStart && tempStart.getDate() === day && tempStart.getMonth() === currentDate.getMonth();
+      const isEnd = tempEnd && tempEnd.getDate() === day && tempEnd.getMonth() === currentDate.getMonth();
       
       days.push(
         <div

@@ -17,7 +17,7 @@ function PeriodInput({period, setPeriod, onInputClick}){
             className="period-input"            
             readOnly
           />
-          <MdCalendarToday className="calendar-icon" onClick={onInputClick}/> {/* 아이콘 클릭 시 데이트 피커 열림 */}
+          <MdCalendarToday className="calendar-icon" onClick={onInputClick}/>
         </div>
     )
 }

@@ -33,6 +33,7 @@ const GoalPage = () => {
   const [data, setData] = useState(null);
 
   const handlePostRequest = async () => {
+
     try {
       const postData = {
         startDate: startDate,
@@ -53,6 +54,7 @@ const GoalPage = () => {
       console.error('POST 요청 에러:', error.response?.data || error.message);
     }
   };
+
 
   // DatePicker 열기/닫기 함수
   const toggleDatePicker = () => {

@@ -28,7 +28,7 @@ head {
 .white-background {
     flex: 5;
     background-color: white; /* 하얀색 배경 */
-    padding: 20px 0;
+    padding: 15px 5px !important;
     border-top-left-radius: 20px; /* 둥근 테두리 적용 */
     border-top-right-radius: 20px;
 }

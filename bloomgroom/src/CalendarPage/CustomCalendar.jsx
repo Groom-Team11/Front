@@ -4,10 +4,13 @@ import "react-calendar/dist/Calendar.css"; // 기본 스타일
 import "./CustomCalendar.css"
 import waterDrop from './highlight2.png'
 
+import axios from "axios";
+
 
 
 function CustomCalendar({ startDate, endDate, eventDates }) {
   const [value, setValue] = useState(new Date());
+  const [date, setDate] = useState(new Date());
 
   const onChange = (date) => {
     setValue(date);
@@ -52,7 +55,7 @@ function CustomCalendar({ startDate, endDate, eventDates }) {
   
       // 이벤트 날짜에 물방울 아이콘 추가
       if (eventDates.some(eventDate => eventDate.toDateString() === date.toDateString())) {
-        return <img src={waterDrop} alt="Water Drop" className="icon" />;
+        return <span ><img src={waterDrop} alt="Water Drop" className="icon" /></span>;
       }
     }
     
